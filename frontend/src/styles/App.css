@@ -1,7 +1,36 @@
+:root {
+  --main-deep-blue: #004C99;
+  --main-bright-green: #00CC66;
+  --main-sky-blue: #66CCFF;
+  --main-light-green: #99FFCC;
+  --main-gray: #666666;
+  --main-bg-light-grey: #F4F6F9;
+  --main-light-grey: #AAAAAA;
+}
+
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  font-variation-settings:
-    "slnt" 0;
+  font-variation-settings: "slnt" 0;
+  background-color: var(--main-bg-light-grey);
+}
+
+.app-container {
+  min-height: 100vh;
+  min-width: 680px;
+  width: 50%;
+  background-color: white;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 680px) {
+  .app-container {
+    min-height: 100vh;
+    min-width: 100%;
+    width: 100%;
+    background-color: white;
+    margin: 0 auto;
+  }
+  
 }
