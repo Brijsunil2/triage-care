@@ -5,14 +5,14 @@ import Button from "../components/Button";
 const TriageStartPage = () => {
   return (
     <main className="triagestartpage-container text-center">
-      <div className="container p-5">
+      <div className="container">
         <img
           className="main-logo py-4"
           src={logo}
           alt="Main triage care logo"
         />
         <h1>Welcome to TriageCare</h1>
-        <p>Your health is our priority. Start your check-in process below.</p>
+        <p className="px-5">Your health is our priority. Start your check-in process below.</p>
         <Button
           classNames={"my-2 input-btn start-checkin-btn"}
           value="Start Check-in"

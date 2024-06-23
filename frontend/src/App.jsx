@@ -2,6 +2,7 @@ import "./styles/App.css";
 import Header from "./components/Header";
 import TriageStartPage from "./pages/TriageStartPage";
 import UnexpectedErrorPage from "./pages/UnexpectedErrorPage";
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   return (

@@ -1,23 +1,24 @@
 .dotsloader-container {
   display: flex;
-  margin: 10px;
+  margin: 4px;
   margin-bottom: 0;
+  transform: translateY(5px);
 }
 
-.dot {
+.dotsloader-container .dot {
   width: var(--dot-width);
   height: var(--dot-height);
   margin: var(--dot-gap);
-  background-color: #3f8cff;
+  background-color: var(--main-deep-blue);
   border-radius: 50%;
   animation: jump 0.6s infinite;
 }
 
-.dot:nth-child(2) {
+.dotsloader-container .dot:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-.dot:nth-child(3) {
+.dotsloader-container .dot:nth-child(3) {
   animation-delay: 0.4s;
 }
 
@@ -26,6 +27,6 @@
       transform: translateY(0);
   }
   50% {
-      transform: translateY(-10px);
+      transform: translateY(-5px);
   }
 }
