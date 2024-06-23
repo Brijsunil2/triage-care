@@ -5,7 +5,7 @@ import Button from "../components/Button";
 const TriageStartPage = () => {
   return (
     <main className="triagestartpage-container text-center">
-      <div className="container">
+      <div className="container p-5">
         <img
           className="main-logo py-4"
           src={logo}

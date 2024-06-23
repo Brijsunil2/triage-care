@@ -1,8 +1,4 @@
-.triagestartpage-container .main-logo {
-  transform: scale(0.8);
-}
-
-.triagestartpage-container {
+.unexpecederrorpage-container {
   display: flex;
   min-height: 75vh;
   height: 75vh;

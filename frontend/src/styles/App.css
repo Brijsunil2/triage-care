@@ -3,6 +3,7 @@
   --main-bright-green: #00CC66;
   --main-sky-blue: #66CCFF;
   --main-light-green: #99FFCC;
+  --main-darkend-green: #00994C;
   --main-gray: #666666;
   --main-bg-light-grey: #F4F6F9;
   --main-light-grey: #AAAAAA;
@@ -32,6 +33,7 @@ h1 {
 
 h2 {
   font-size: 1.5rem;
+  color: var(--main-deep-blue);
 }
 
 h3 {
@@ -46,11 +48,11 @@ input[type="button"] {
   color: white;
   background-color: var(--main-bright-green);
   border: solid 1px var(--main-light-green);
+  transition: background-color 0.3s;
 }
 
-input[type="button"]:hover {
-  opacity: 0.9;
-  transition: opacity 0.4s;
+input[type="button"]:hover  {
+  background-color: var(--main-darkend-green);
 }
 
 @media only screen and (max-width: 680px) {
