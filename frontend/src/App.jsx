@@ -1,10 +1,15 @@
 import "./styles/App.css";
-import CheckInPage from "./pages/CheckInPage";
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   return (
     <div className="app-container">
-      <CheckInPage />
+      <Suspense fallback={<LoadingPage />}>
+        <Outlet />
+      </Suspense>
+
       {/* <UnexpectedErrorPage
         h1Text="Oops!"
         h2Text="Something went wrong"
