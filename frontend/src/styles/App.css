@@ -24,6 +24,35 @@ body {
   margin: 0 auto;
 }
 
+h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--main-deep-blue);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+input[type="button"] {
+  color: white;
+  background-color: var(--main-bright-green);
+  border: solid 1px var(--main-light-green);
+}
+
+input[type="button"]:hover {
+  opacity: 0.9;
+  transition: opacity 0.4s;
+}
+
 @media only screen and (max-width: 680px) {
   .app-container {
     min-height: 100vh;
