@@ -44,6 +44,21 @@ p {
   font-size: 1rem;
 }
 
+input {
+  border-color: var(--main-light-grey);
+}
+
+.btn-primary {
+  color: white;
+  background-color: var(--main-bright-green);
+  border: solid 1px var(--main-light-green);
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--main-darkend-green);
+}
+
 input[type="button"] {
   color: white;
   background-color: var(--main-bright-green);
@@ -53,6 +68,23 @@ input[type="button"] {
 
 input[type="button"]:hover  {
   background-color: var(--main-darkend-green);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 1px var(--main-sky-blue);
+}
+
+.input-btn {
+  min-width: fit-content;
+  max-width: 50%;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.input-btn.start-checkin-btn {
+  padding: 8px 30px;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 680px) {

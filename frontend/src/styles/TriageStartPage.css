@@ -1,5 +1,6 @@
 .triagestartpage-container .main-logo {
-  transform: scale(0.8);
+  height: 12rem;
+  width: auto;
 }
 
 .triagestartpage-container {
@@ -12,6 +13,7 @@
 
 @media only screen and (max-width: 576px) {
   .triagestartpage-container .main-logo {
-    transform: scale(0.6);
+    height: 10rem;
+    width: auto;
   }
 }
