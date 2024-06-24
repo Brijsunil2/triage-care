@@ -87,6 +87,27 @@ input[type="button"]:hover  {
   border-radius: 5px;
 }
 
+.input-container > label {
+  position: relative;
+  top: 18px;
+  left: 1rem;
+  background-color: white;
+  font-size: 0.8rem;
+  color: var(--main-bright-green);
+  padding: 1px 3px;
+}
+
+.input-container .input-btn {
+  border-color: var(--main-light-grey);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-container .input-box {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 @media only screen and (max-width: 680px) {
   .app-container {
     min-height: 100vh;
