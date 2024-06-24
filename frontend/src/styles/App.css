@@ -87,9 +87,13 @@ input[type="button"]:hover  {
   border-radius: 5px;
 }
 
-.input-container > label {
+.input-container {
   position: relative;
-  top: 18px;
+}
+
+.input-container > label {
+  position: absolute;
+  top: -10px;
   left: 1rem;
   background-color: white;
   font-size: 0.8rem;

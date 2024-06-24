@@ -22,6 +22,7 @@ const PatientInfoPage = () => {
         </Container>
        
         <HealthCardForm />
+        
       </Container>
     </main>
   );

@@ -1,8 +1,9 @@
 import "../styles/HealthCardForm.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Form, Row, Button } from "react-bootstrap";
 import { healthCardNumberSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
+import Cleave from "cleave.js";
 
 const HealthCardForm = () => {
   const [validate, setValidate] = useState(true);
@@ -12,6 +13,14 @@ const HealthCardForm = () => {
     setValidate(false);
     console.log("Healthcard submit [HealthCardForm]");
   };
+
+  useEffect(() => {
+    new Cleave("#healthCardNumber", {
+      blocks: [4, 3, 3, 2],
+      delimiters: ["-"],
+      uppercase: [true],
+    });
+  }, []);
 
   return (
     <Container className="healthcardform-container">
@@ -26,17 +35,18 @@ const HealthCardForm = () => {
           <Form onSubmit={handleSubmit}>
             <Row>
               <Form.Group className="input-container">
-                <Form.Label>
+                <Form.Label htmlFor="healthCardNumber">
                   <span style={{ color: "red" }}>*</span> Health Card Number
                 </Form.Label>
                 <div className="d-flex">
                   <Form.Control
-                    className="input-box"
+                    id="healthCardNumber"
+                    className="form-control input-box healthcardnumber-input"
                     type="text"
                     placeholder="XXXX-XXX-XXX-AB"
-                    name="Health Card Number"
-                    value=""
-                    onChange={() => console.log("Change")}
+                    name="healthCardNumber"
+                    value={values.healthCardNumber}
+                    onChange={handleChange}
                     isInvalid={false}
                   />
                   <Button
