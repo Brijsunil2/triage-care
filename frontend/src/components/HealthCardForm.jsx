@@ -9,7 +9,7 @@ const HealthCardForm = () => {
   const [validate, setValidate] = useState(true);
   const { Formik } = formik;
 
-  const submitHandler = () => {
+  const submitHandler = (values) => {
     setValidate(false);
     console.log("Healthcard submit [HealthCardForm]");
   };
@@ -26,7 +26,7 @@ const HealthCardForm = () => {
     <Container className="healthcardform-container">
       <Formik
         validationSchema={healthCardNumberSchema}
-        onSubmit={() => submitHandler()}
+        onSubmit={(values) => submitHandler(values)}
         initialValues={{
           healthCardNumber: "",
         }}
