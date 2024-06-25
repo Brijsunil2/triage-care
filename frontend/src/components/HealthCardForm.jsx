@@ -15,7 +15,7 @@ const HealthCardForm = () => {
   };
 
   useEffect(() => {
-    new Cleave("#healthCardNumber", {
+    new Cleave("#healthCardNumberInput", {
       blocks: [4, 3, 3, 2],
       delimiters: ["-"],
       uppercase: [true],
@@ -35,12 +35,12 @@ const HealthCardForm = () => {
           <Form onSubmit={handleSubmit}>
             <Row>
               <Form.Group className="input-container">
-                <Form.Label htmlFor="healthCardNumber">
+                <Form.Label htmlFor="healthCardNumberInput">
                   <span style={{ color: "red" }}>*</span> Health Card Number
                 </Form.Label>
                 <div className="d-flex">
                   <Form.Control
-                    id="healthCardNumber"
+                    id="healthCardNumberInput"
                     className="form-control input-box healthcardnumber-input"
                     type="text"
                     placeholder="XXXX-XXX-XXX-AB"

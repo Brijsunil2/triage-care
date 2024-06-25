@@ -45,7 +45,7 @@ const PatientInfoForm = () => {
                   </Form.Label>
                   <Form.Control
                     id="firstNameInput"
-                    className="form-control firstName-input"
+                    className="form-control firstname-input"
                     type="text"
                     name="firstName"
                     value={values.firstName}
@@ -64,7 +64,7 @@ const PatientInfoForm = () => {
                   </Form.Label>
                   <Form.Control
                     id="lastNameInput"
-                    className="form-control lastName-input"
+                    className="form-control lastname-input"
                     type="text"
                     name="lastName"
                     value={values.lastName}
@@ -76,6 +76,69 @@ const PatientInfoForm = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
+            </Row>
+            <Row>
+              <Col sm={6}>
+                <Form.Group className="input-container">
+                  <Form.Label htmlFor="dateOfBirthInput">
+                    <span style={{ color: "red" }}>*</span> Date of Birth
+                  </Form.Label>
+                  <Form.Control
+                    id="dateOfBirthInput"
+                    className="form-control dateofbirth-input"
+                    type="date"
+                    name="dateOfBirth"
+                    value={values.dateOfBirth}
+                    onChange={handleChange}
+                    isInvalid={false}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {validate ? "Please provide your date of birth" : ""}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col sm={6}>
+                <Form.Group className="input-container">
+                  <Form.Label htmlFor="genderInput">
+                    <span style={{ color: "red" }}>*</span> Gender
+                  </Form.Label>
+                  <Form.Select
+                    id="genderInput"
+                    className="form-control gender-input"
+                    name="gender"
+                    value={values.gender}
+                    onChange={handleChange}
+                    isInvalid={false}
+                  >
+                    <option></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {validate ? "Please provide your gender" : ""}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Form.Group className="input-container">
+                <Form.Label htmlFor="addressInput">
+                  <span style={{ color: "red" }}>*</span> Address
+                </Form.Label>
+                  <Form.Control
+                    id="addressInput"
+                    className="form-control address-input"
+                    type="text"
+                    name="address"
+                    value={values.address}
+                    onChange={handleChange}
+                    isInvalid={false}
+                  />
+                <Form.Control.Feedback type="invalid">
+                  {validate ? "Please provide an address" : ""}
+                </Form.Control.Feedback>
+              </Form.Group>
             </Row>
           </Form>
         )}
