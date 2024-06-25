@@ -1,4 +1,3 @@
-import "../styles/HealthCardForm.css";
 import { useEffect, useState } from "react";
 import { Container, Form, Row, Button } from "react-bootstrap";
 import { healthCardNumberSchema } from "../models/checkinDataSchemas";

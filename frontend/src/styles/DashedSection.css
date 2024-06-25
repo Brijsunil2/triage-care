@@ -1,0 +1,19 @@
+.dashedsection-container {
+  position: relative;
+  border: dashed 1px var(--main-light-grey);
+  border-radius: 5px;
+  margin: 12px 0;
+  padding: 1rem;
+}
+
+.dashedsection-container h3 {
+  position: absolute;
+  color: var(--main-bright-green);
+  width: 100%;
+  top: -12px;
+}
+
+.dashedsection-container h3 span {
+  background-color: white;
+  padding: 0 10px;
+}

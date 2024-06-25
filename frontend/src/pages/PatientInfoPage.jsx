@@ -3,6 +3,7 @@ import logo from "../assets/triage_care_logo.png";
 import { Container } from "react-bootstrap";
 import HealthCardForm from "../components/HealthCardForm";
 import PatientInfoForm from "../components/PatientInfoForm";
+import PatientContactInfoForm from "../components/PatientContactInfoForm";
 
 const PatientInfoPage = () => {
   return (
@@ -25,6 +26,7 @@ const PatientInfoPage = () => {
         <hr />
 
         <PatientInfoForm />
+        <PatientContactInfoForm />
       </Container>
     </main>
   );

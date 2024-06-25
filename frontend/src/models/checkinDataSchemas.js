@@ -5,10 +5,10 @@ const healthCardNumberSchema = yup.object({
 });
 
 const patientContactInfoSchema = yup.object({
-  primaryPhoneNumber: yup.string().length(14).required(),
-  secondaryPhoneNumber: yup.string().length(14),
-  emergencyContact: yup.string().length(14).required(),
-  emergencyContactRelationship: yup.string().required(),
+  primaryPhoneNumber: yup.string().length(10).required(),
+  secondaryPhoneNumber: yup.string().length(10),
+  emergencyContact: yup.string().length(10).required(),
+  emergencyContactRelationship: yup.string(),
   email: yup.string().email()
 })
 
@@ -18,12 +18,13 @@ const patientInfoSchema = yup.object({
   dateOfBirth: yup.string().required(),
   gender: yup.string().required(),
   address: yup.string().required(),
-  contactInformation: patientContactInfoSchema
 });
 
 const checkinDataSchema = yup.object({
   patientInfo: {
     healthCardNumber: healthCardNumberSchema,
+    patientInfo: patientInfoSchema,
+    contactInformation: patientContactInfoSchema
   },
 });
 

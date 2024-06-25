@@ -1,9 +1,7 @@
-import "../styles/PatientInfoForm.css";
-import { useEffect, useState } from "react";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Form, Row, Col } from "react-bootstrap";
 import { patientInfoSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
-import Cleave from "cleave.js";
 
 const PatientInfoForm = () => {
   const [validate, setValidate] = useState(true);
@@ -13,14 +11,6 @@ const PatientInfoForm = () => {
     setValidate(false);
     console.log("Patient info submit [PatientInfoForm]");
   };
-
-  // useEffect(() => {
-  //   new Cleave("#healthCardNumber", {
-  //     blocks: [4, 3, 3, 2],
-  //     delimiters: ["-"],
-  //     uppercase: [true],
-  //   });
-  // }, []);
 
   return (
     <Container className="patientInfoForum-container">
@@ -126,15 +116,15 @@ const PatientInfoForm = () => {
                 <Form.Label htmlFor="addressInput">
                   <span style={{ color: "red" }}>*</span> Address
                 </Form.Label>
-                  <Form.Control
-                    id="addressInput"
-                    className="form-control address-input"
-                    type="text"
-                    name="address"
-                    value={values.address}
-                    onChange={handleChange}
-                    isInvalid={false}
-                  />
+                <Form.Control
+                  id="addressInput"
+                  className="form-control address-input"
+                  type="text"
+                  name="address"
+                  value={values.address}
+                  onChange={handleChange}
+                  isInvalid={false}
+                />
                 <Form.Control.Feedback type="invalid">
                   {validate ? "Please provide an address" : ""}
                 </Form.Control.Feedback>
