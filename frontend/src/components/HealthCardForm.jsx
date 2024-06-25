@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Form, Row, Button } from "react-bootstrap";
+import { Container, Form, Row, Button, Col } from "react-bootstrap";
 import { healthCardNumberSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 import Cleave from "cleave.js";
@@ -33,34 +33,38 @@ const HealthCardForm = () => {
         {({ handleSubmit, handleChange, values, touched, errors }) => (
           <Form onSubmit={handleSubmit}>
             <Row>
-              <Form.Group className="input-container">
-                <Form.Label htmlFor="healthCardNumberInput">
-                  <span style={{ color: "red" }}>*</span> Health Card Number
-                </Form.Label>
-                <div className="d-flex">
-                  <Form.Control
-                    id="healthCardNumberInput"
-                    className="form-control input-box healthcardnumber-input"
-                    type="text"
-                    placeholder="XXXX-XXX-XXX-AB"
-                    name="healthCardNumber"
-                    value={values.healthCardNumber}
-                    onChange={handleChange}
-                    isInvalid={false}
-                  />
-                  <Button
-                    className="input-btn"
-                    onClick={() =>
-                      console.log("Search patient button [HealthCardForm]")
-                    }
-                  >
-                    Search Patient
-                  </Button>
-                </div>
-                <Form.Control.Feedback type="invalid">
-                  {validate ? "Please provide a valid health card number" : ""}
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Col>
+                <Form.Group className="input-container">
+                  <Form.Label htmlFor="healthCardNumberInput">
+                    <span style={{ color: "red" }}>*</span> Health Card Number
+                  </Form.Label>
+                  <div className="d-flex">
+                    <Form.Control
+                      id="healthCardNumberInput"
+                      className="form-control input-box healthcardnumber-input"
+                      type="text"
+                      placeholder="XXXX-XXX-XXX-AB"
+                      name="healthCardNumber"
+                      value={values.healthCardNumber}
+                      onChange={handleChange}
+                      isInvalid={false}
+                    />
+                    <Button
+                      className="input-btn"
+                      onClick={() =>
+                        console.log("Search patient button [HealthCardForm]")
+                      }
+                    >
+                      Search Patient
+                    </Button>
+                  </div>
+                  <Form.Control.Feedback type="invalid">
+                    {validate
+                      ? "Please provide a valid health card number"
+                      : ""}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
             </Row>
           </Form>
         )}

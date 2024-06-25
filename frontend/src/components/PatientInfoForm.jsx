@@ -112,23 +112,25 @@ const PatientInfoForm = () => {
               </Col>
             </Row>
             <Row>
-              <Form.Group className="input-container">
-                <Form.Label htmlFor="addressInput">
-                  <span style={{ color: "red" }}>*</span> Address
-                </Form.Label>
-                <Form.Control
-                  id="addressInput"
-                  className="form-control address-input"
-                  type="text"
-                  name="address"
-                  value={values.address}
-                  onChange={handleChange}
-                  isInvalid={false}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {validate ? "Please provide an address" : ""}
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Col>
+                <Form.Group className="input-container">
+                  <Form.Label htmlFor="addressInput">
+                    <span style={{ color: "red" }}>*</span> Address
+                  </Form.Label>
+                  <Form.Control
+                    id="addressInput"
+                    className="form-control address-input"
+                    type="text"
+                    name="address"
+                    value={values.address}
+                    onChange={handleChange}
+                    isInvalid={false}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {validate ? "Please provide an address" : ""}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
             </Row>
           </Form>
         )}
