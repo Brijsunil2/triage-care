@@ -1,8 +1,12 @@
-#black-text-checkbox {
+.text-black * {
+  color: black !important;
+}
+
+#blackTextCheckbox {
   transform: scale(1.5);
 }
 
-#black-text-checkbox:checked {
+#blackTextCheckbox:checked {
   accent-color: var(--main-bright-green);
   border: solid white;
 }
