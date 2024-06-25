@@ -4,7 +4,7 @@ import { Container, Button } from "react-bootstrap";
 import HealthCardForm from "../components/HealthCardForm";
 import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const PatientInfoPage = () => {
   return (
@@ -29,10 +29,18 @@ const PatientInfoPage = () => {
         <PatientInfoForm />
         <PatientContactInfoForm />
 
-        <div className="d-flex flex-row-reverse">
+        <div className="d-flex justify-content-between">
           <Button
             className="px-4 py-2 my-4 d-flex align-items-center"
-            style={{verticalAlign: "bottom"}}
+            style={{ verticalAlign: "bottom" }}
+            onClick={() => console.log("Back button patient info [PatientInfoPage]")}
+          >
+            <IoIosArrowBack />
+            Back
+          </Button>
+          <Button
+            className="px-4 py-2 my-4 d-flex align-items-center"
+            style={{ verticalAlign: "bottom" }}
             onClick={() => console.log("Submit patient info [PatientInfoPage]")}
           >
             Next
