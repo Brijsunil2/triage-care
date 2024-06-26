@@ -1,15 +1,12 @@
-import { useState } from "react";
 import { Container, Form, Row, Button, Col } from "react-bootstrap";
 import { healthCardNumberSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 import Cleave from "cleave.js/react";
 
 const HealthCardForm = () => {
-  const [validate, setValidate] = useState(true);
   const { Formik } = formik;
 
   const submitHandler = (values) => {
-    setValidate(true);
     console.log("Healthcard submit [HealthCardForm]");
     console.log(values);
   };
@@ -21,7 +18,7 @@ const HealthCardForm = () => {
         validationSchema={healthCardNumberSchema}
         onSubmit={values => submitHandler(values)}
       >
-        {({ handleSubmit, handleChange, values }) => (
+        {({ handleSubmit, handleChange, values, errors, touched }) => (
           <Form noValidate onSubmit={handleSubmit}>
             <Row>
               <Col>
@@ -32,7 +29,7 @@ const HealthCardForm = () => {
                   <div className="d-flex">
                     <Cleave
                       id="healthCardNumberInput"
-                      className="form-control input-box healthcardnumber-input"
+                      className={`form-control input-box healthcardnumber-input ${touched.healthCardNumber && errors.healthCardNumber ? "is-invalid" : ""}`}
                       placeholder="XXXX-XXX-XXX-AB"
                       name="healthCardNumber"
                       value={values.healthCardNumber}
@@ -47,11 +44,11 @@ const HealthCardForm = () => {
                       Search Patient
                     </Button>
                   </div>
-                  <Form.Control.Feedback type="invalid">
-                    {validate
-                      ? "Please provide a valid health card number"
-                      : ""}
-                  </Form.Control.Feedback>
+                  {touched.healthCardNumber && errors.healthCardNumber && (
+                    <div className="invalid-feedback d-block">
+                      {errors.healthCardNumber}
+                    </div>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
