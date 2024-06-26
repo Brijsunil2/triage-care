@@ -5,8 +5,22 @@ import HealthCardForm from "../components/HealthCardForm";
 import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
+import { useContext } from "react";
+import { initialCheckinData } from "../models/checkinDataSchemas";
 
-const PatientInfoPage = () => {
+const PatientInfoPage = ({prevPage, nextPage}) => {
+  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext)
+
+  const onClickPageBack = () => {
+    prevPage();
+    setCheckinData({...initialCheckinData})
+  }
+
+  const onClickPageNext = () => {
+    // nextPage();
+  }
+
   return (
     <main className="patientinfopage-container">
       <Container>
@@ -33,7 +47,7 @@ const PatientInfoPage = () => {
           <Button
             className="px-4 py-2 my-4 d-flex align-items-center"
             style={{ verticalAlign: "bottom" }}
-            onClick={() => console.log("Back button patient info [PatientInfoPage]")}
+            onClick={onClickPageBack}
           >
             <IoIosArrowBack />
             Back
@@ -41,7 +55,7 @@ const PatientInfoPage = () => {
           <Button
             className="px-4 py-2 my-4 d-flex align-items-center"
             style={{ verticalAlign: "bottom" }}
-            onClick={() => console.log("Submit patient info [PatientInfoPage]")}
+            onClick={onClickPageNext}
           >
             Next
             <IoIosArrowForward />

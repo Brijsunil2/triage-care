@@ -1,37 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Form, Row, Button, Col } from "react-bootstrap";
 import { healthCardNumberSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
-import Cleave from "cleave.js";
+import Cleave from "cleave.js/react";
 
 const HealthCardForm = () => {
   const [validate, setValidate] = useState(true);
   const { Formik } = formik;
 
   const submitHandler = (values) => {
-    setValidate(false);
+    setValidate(true);
     console.log("Healthcard submit [HealthCardForm]");
+    console.log(values);
   };
-
-  useEffect(() => {
-    new Cleave("#healthCardNumberInput", {
-      blocks: [4, 3, 3, 2],
-      delimiters: ["-"],
-      uppercase: [true],
-    });
-  }, []);
 
   return (
     <Container className="healthcardform-container">
       <Formik
+        initialValues={{ healthCardNumber: "" }}
         validationSchema={healthCardNumberSchema}
-        onSubmit={(values) => submitHandler(values)}
-        initialValues={{
-          healthCardNumber: "",
-        }}
+        onSubmit={values => submitHandler(values)}
       >
-        {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <Form onSubmit={handleSubmit}>
+        {({ handleSubmit, handleChange, values }) => (
+          <Form noValidate onSubmit={handleSubmit}>
             <Row>
               <Col>
                 <Form.Group className="input-container">
@@ -39,22 +30,20 @@ const HealthCardForm = () => {
                     <span style={{ color: "red" }}>*</span> Health Card Number
                   </Form.Label>
                   <div className="d-flex">
-                    <Form.Control
+                    <Cleave
                       id="healthCardNumberInput"
                       className="form-control input-box healthcardnumber-input"
-                      type="text"
                       placeholder="XXXX-XXX-XXX-AB"
                       name="healthCardNumber"
                       value={values.healthCardNumber}
+                      options={{
+                        blocks: [4, 3, 3, 2],
+                        delimiters: ["-"],
+                        uppercase: true,
+                      }}
                       onChange={handleChange}
-                      isInvalid={false}
                     />
-                    <Button
-                      className="input-btn"
-                      onClick={() =>
-                        console.log("Search patient button [HealthCardForm]")
-                      }
-                    >
+                    <Button type="submit" className="input-btn">
                       Search Patient
                     </Button>
                   </div>
