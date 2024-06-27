@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { patientContactInfoSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
-import Cleave from "cleave.js";
+import Cleave from "cleave.js/react";
 import "cleave.js/dist/addons/cleave-phone.ca";
 
 const PatientContactInfoForm = () => {
@@ -22,12 +22,6 @@ const PatientContactInfoForm = () => {
     console.log("Patient contact info submit [PatientContactInfoForm]");
   };
 
-  useEffect(() => {
-    new Cleave("#primaryPhoneNumberInput", phoneNumberCleaveFormat);
-    new Cleave("#secondaryPhoneNumberInput", phoneNumberCleaveFormat);
-    new Cleave("#emergencyContactInput", phoneNumberCleaveFormat);
-  }, []);
-
   return (
     <DashedSection
       className="patientContactInfoForm"
@@ -45,21 +39,25 @@ const PatientContactInfoForm = () => {
         }}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form id="patientContactInfoForm" noValidate onSubmit={handleSubmit}>
             <Row>
               <Col sm={6}>
                 <Form.Group className="input-container">
                   <Form.Label htmlFor="primaryPhoneNumberInput">
                     <span style={{ color: "red" }}>*</span> Primary Phone Number
                   </Form.Label>
-                  <Form.Control
+                  <Cleave
                     id="primaryPhoneNumberInput"
-                    className="form-control primaryphonenumber-input"
+                    className={`form-control primaryphonenumber-input ${
+                      touched.primaryPhoneNumber && errors.primaryPhoneNumber
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    options={phoneNumberCleaveFormat}
                     type="tel"
                     name="primaryPhoneNumber"
                     value={values.primaryPhoneNumber}
                     onChange={handleChange}
-                    isInvalid={false}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide a valid phone number" : ""}
@@ -71,14 +69,18 @@ const PatientContactInfoForm = () => {
                   <Form.Label htmlFor="secondaryPhoneNumberInput">
                     Secondary Phone Number
                   </Form.Label>
-                  <Form.Control
+                  <Cleave
                     id="secondaryPhoneNumberInput"
-                    className="form-control secondaryphonenumber-input"
+                    className={`form-control secondaryphonenumber-input ${
+                      touched.secondaryPhoneNumber && errors.secondaryPhoneNumber
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    options={phoneNumberCleaveFormat}
                     type="tel"
                     name="secondaryPhoneNumber"
                     value={values.secondaryPhoneNumber}
                     onChange={handleChange}
-                    isInvalid={false}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide a valid phone number" : ""}
@@ -92,14 +94,18 @@ const PatientContactInfoForm = () => {
                   <Form.Label htmlFor="emergencyContactInput">
                     <span style={{ color: "red" }}>*</span> Emergency Contact
                   </Form.Label>
-                  <Form.Control
+                  <Cleave
                     id="emergencyContactInput"
-                    className="form-control emergencycontact-input"
+                    className={`form-control emergencycontact-input ${
+                      touched.emergencyContact && errors.emergencyContact
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    options={phoneNumberCleaveFormat}
                     type="tel"
                     name="emergencyContact"
                     value={values.emergencyContact}
                     onChange={handleChange}
-                    isInvalid={false}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate
@@ -120,7 +126,7 @@ const PatientContactInfoForm = () => {
                     name="emergencyContactRelationship"
                     value={values.emergencyContactRelationship}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.emergencyContactRelationship && errors.emergencyContactRelationship}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide the relationship type" : ""}
@@ -139,7 +145,7 @@ const PatientContactInfoForm = () => {
                     name="email"
                     value={values.email}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.email && errors.email}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide a valid email" : ""}

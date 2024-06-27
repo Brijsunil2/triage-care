@@ -34,9 +34,9 @@ export const healthCardNumberSchema = yup.object({
 });
 
 export const patientContactInfoSchema = yup.object({
-  primaryPhoneNumber: yup.string().length(10).required(),
-  secondaryPhoneNumber: yup.string().length(10),
-  emergencyContact: yup.string().length(10).required(),
+  primaryPhoneNumber: yup.string().required(),
+  secondaryPhoneNumber: yup.string(),
+  emergencyContact: yup.string().required(),
   emergencyContactRelationship: yup.string(),
   email: yup.string().email(),
 });

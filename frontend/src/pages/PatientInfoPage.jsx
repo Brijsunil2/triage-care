@@ -9,17 +9,35 @@ import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext"
 import { useContext } from "react";
 import { initialCheckinData } from "../models/checkinDataSchemas";
 
-const PatientInfoPage = ({prevPage, nextPage}) => {
-  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext)
+const PatientInfoPage = ({ prevPage, nextPage }) => {
+  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
 
   const onClickPageBack = () => {
     prevPage();
-    setCheckinData({...initialCheckinData})
-  }
+    setCheckinData({ ...initialCheckinData });
+  };
 
   const onClickPageNext = () => {
-    // nextPage();
-  }
+    const healthCardForm = document.getElementById("healthCardForm")
+    const patientInfoForm = document.getElementById("patientInfoForm");
+    const patientContactInfoForm = document.getElementById(
+      "patientContactInfoForm"
+    );
+
+    if (patientInfoForm && patientContactInfoForm && healthCardForm) {
+      healthCardForm.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
+
+      patientInfoForm.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
+      
+      patientContactInfoForm.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
+    }
+  };
 
   return (
     <main className="patientinfopage-container">

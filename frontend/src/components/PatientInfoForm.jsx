@@ -1,32 +1,30 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { patientInfoSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
+import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
 
 const PatientInfoForm = () => {
+  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
   const [validate, setValidate] = useState(true);
   const { Formik } = formik;
 
   const submitHandler = (values) => {
     setValidate(false);
-    console.log("Patient info submit [PatientInfoForm]");
+    console.log("Patient info submit [PatientInfoForm]", values);
+    setCheckinData({ ...checkinData, patientInfo: values });
   };
 
   return (
     <Container className="patientInfoForum-container">
       <Formik
+        validateOnBlur={true}
         validationSchema={patientInfoSchema}
-        onSubmit={(values) => submitHandler(values)}
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          dateOfBirth: "",
-          gender: "",
-          address: "",
-        }}
+        onSubmit={submitHandler}
+        initialValues={checkinData.patientInfo}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form id="patientInfoForm" noValidate onSubmit={handleSubmit}>
             <Row>
               <Col sm={6}>
                 <Form.Group className="input-container">
@@ -40,7 +38,7 @@ const PatientInfoForm = () => {
                     name="firstName"
                     value={values.firstName}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.firstName && errors.firstName}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide your first name" : ""}
@@ -59,7 +57,7 @@ const PatientInfoForm = () => {
                     name="lastName"
                     value={values.lastName}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.lastName && errors.lastName}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide your last name" : ""}
@@ -80,7 +78,7 @@ const PatientInfoForm = () => {
                     name="dateOfBirth"
                     value={values.dateOfBirth}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.dateOfBirth && errors.dateOfBirth}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide your date of birth" : ""}
@@ -98,7 +96,7 @@ const PatientInfoForm = () => {
                     name="gender"
                     value={values.gender}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.gender && errors.gender}
                   >
                     <option></option>
                     <option value="Male">Male</option>
@@ -124,7 +122,7 @@ const PatientInfoForm = () => {
                     name="address"
                     value={values.address}
                     onChange={handleChange}
-                    isInvalid={false}
+                    isInvalid={touched.address && errors.address}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validate ? "Please provide an address" : ""}

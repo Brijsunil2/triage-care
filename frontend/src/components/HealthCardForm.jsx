@@ -7,8 +7,7 @@ const HealthCardForm = () => {
   const { Formik } = formik;
 
   const submitHandler = (values) => {
-    console.log("Healthcard submit [HealthCardForm]");
-    console.log(values);
+    console.log("Healthcard submit [HealthCardForm]", values);
   };
 
   return (
@@ -19,7 +18,7 @@ const HealthCardForm = () => {
         onSubmit={values => submitHandler(values)}
       >
         {({ handleSubmit, handleChange, values, errors, touched }) => (
-          <Form noValidate onSubmit={handleSubmit}>
+          <Form id="healthCardForm" noValidate onSubmit={handleSubmit}>
             <Row>
               <Col>
                 <Form.Group className="input-container">
