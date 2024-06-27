@@ -60,7 +60,7 @@ const PatientContactInfoForm = () => {
                     onChange={handleChange}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide a valid phone number" : ""}
+                    {errors.primaryPhoneNumber}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -83,7 +83,7 @@ const PatientContactInfoForm = () => {
                     onChange={handleChange}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide a valid phone number" : ""}
+                    {errors.secondaryPhoneNumber}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -108,9 +108,7 @@ const PatientContactInfoForm = () => {
                     onChange={handleChange}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate
-                      ? "Please provide a valid emergency contact number"
-                      : ""}
+                    {errors.emergencyContact}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -128,9 +126,6 @@ const PatientContactInfoForm = () => {
                     onChange={handleChange}
                     isInvalid={touched.emergencyContactRelationship && errors.emergencyContactRelationship}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide the relationship type" : ""}
-                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
@@ -148,7 +143,7 @@ const PatientContactInfoForm = () => {
                     isInvalid={touched.email && errors.email}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide a valid email" : ""}
+                    {errors.email}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
