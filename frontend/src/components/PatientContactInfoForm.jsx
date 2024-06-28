@@ -1,13 +1,14 @@
 import DashedSection from "./DashedSection";
-import { useState, useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { patientContactInfoSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 import Cleave from "cleave.js/react";
 import "cleave.js/dist/addons/cleave-phone.ca";
+import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
+import { useContext } from "react";
 
 const PatientContactInfoForm = () => {
-  const [validate, setValidate] = useState(true);
+  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
   const { Formik } = formik;
 
   const phoneNumberCleaveFormat = {
@@ -18,8 +19,17 @@ const PatientContactInfoForm = () => {
   };
 
   const submitHandler = (values) => {
-    setValidate(false);
     console.log("Patient contact info submit [PatientContactInfoForm]");
+    
+    setCheckinData({
+      ...checkinData,
+      patientInfo: {
+        ...checkinData.patientInfo,
+        contactInformation: {
+          ...values
+        }
+      },
+    })
   };
 
   return (

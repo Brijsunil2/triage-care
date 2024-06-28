@@ -2,12 +2,23 @@ import { Container, Form, Row, Button, Col } from "react-bootstrap";
 import { healthCardNumberSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 import Cleave from "cleave.js/react";
+import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
+import { useContext } from "react";
 
 const HealthCardForm = () => {
+  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
   const { Formik } = formik;
 
   const submitHandler = (values) => {
     console.log("Healthcard submit [HealthCardForm]", values);
+
+    setCheckinData({
+      ...checkinData,
+      patientInfo: {
+        ...checkinData.patientInfo,
+        healthCardInfo: values.healthCardNumber,
+      },
+    });
   };
 
   return (
@@ -15,7 +26,7 @@ const HealthCardForm = () => {
       <Formik
         initialValues={{ healthCardNumber: "" }}
         validationSchema={healthCardNumberSchema}
-        onSubmit={values => submitHandler(values)}
+        onSubmit={(values) => submitHandler(values)}
       >
         {({ handleSubmit, handleChange, values, errors, touched }) => (
           <Form id="healthCardForm" noValidate onSubmit={handleSubmit}>
@@ -28,7 +39,11 @@ const HealthCardForm = () => {
                   <div className="d-flex">
                     <Cleave
                       id="healthCardNumberInput"
-                      className={`form-control input-box healthcardnumber-input ${touched.healthCardNumber && errors.healthCardNumber ? "is-invalid" : ""}`}
+                      className={`form-control input-box healthcardnumber-input ${
+                        touched.healthCardNumber && errors.healthCardNumber
+                          ? "is-invalid"
+                          : ""
+                      }`}
                       placeholder="XXXX-XXX-XXX-AB"
                       name="healthCardNumber"
                       value={values.healthCardNumber}

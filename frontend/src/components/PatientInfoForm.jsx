@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { patientInfoSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
@@ -6,13 +6,17 @@ import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext"
 
 const PatientInfoForm = () => {
   const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
-  const [validate, setValidate] = useState(true);
   const { Formik } = formik;
 
   const submitHandler = (values) => {
-    setValidate(false);
     console.log("Patient info submit [PatientInfoForm]", values);
-    setCheckinData({ ...checkinData, patientInfo: values });
+    setCheckinData({
+      ...checkinData,
+      patientInfo: {
+        ...checkinData.patientInfo,
+        ...values,
+      },
+    });
   };
 
   return (
@@ -41,7 +45,7 @@ const PatientInfoForm = () => {
                     isInvalid={touched.firstName && errors.firstName}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide your first name" : ""}
+                    {errors.firstName}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -60,7 +64,7 @@ const PatientInfoForm = () => {
                     isInvalid={touched.lastName && errors.lastName}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide your last name" : ""}
+                    {errors.lastName}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -81,7 +85,7 @@ const PatientInfoForm = () => {
                     isInvalid={touched.dateOfBirth && errors.dateOfBirth}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide your date of birth" : ""}
+                    {errors.dateOfBirth}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -104,7 +108,7 @@ const PatientInfoForm = () => {
                     <option value="Other">Other</option>
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide your gender" : ""}
+                    {errors.gender}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -125,7 +129,7 @@ const PatientInfoForm = () => {
                     isInvalid={touched.address && errors.address}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {validate ? "Please provide an address" : ""}
+                    {errors.addressInput}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>

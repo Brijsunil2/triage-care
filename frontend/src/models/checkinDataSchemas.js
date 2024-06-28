@@ -5,9 +5,9 @@ export const patientHealthCardInfo = {
 };
 
 export const patientContactInfo = {
-  primaryPhoneNumber: null,
-  secondaryPhoneNumber: null,
-  emergencyContact: null,
+  primaryPhoneNumber: "",
+  secondaryPhoneNumber: "",
+  emergencyContact: "",
   emergencyContactRelationship: "",
   email: "",
 };
@@ -59,11 +59,11 @@ export const patientContactInfoSchema = yup.object({
 });
 
 export const patientInfoSchema = yup.object({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  dateOfBirth: yup.string().required(),
-  gender: yup.string().required(),
-  address: yup.string().required(),
+  firstName: yup.string().required("Please provide your first name"),
+  lastName: yup.string().required("Please provide your last name"),
+  dateOfBirth: yup.string().required("Please provide your date of birth"),
+  gender: yup.string().required("Please provide your gender"),
+  address: yup.string().required("Please provide an address"),
 });
 
 export const checkinDataSchema = yup.object({
