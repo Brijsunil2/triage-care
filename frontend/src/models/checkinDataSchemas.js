@@ -26,7 +26,7 @@ export const initialCheckinData = {
   patientInfo: patientInfo,
 };
 
-export const healthCardNumberSchema = yup.object({
+export const patientInfoFormSchema = yup.object({
   healthCardNumber: yup
     .string()
     .matches(
@@ -34,9 +34,11 @@ export const healthCardNumberSchema = yup.object({
       "Invalid health card number"
     )
     .required("Please provide your health card number"),
-});
-
-export const patientContactInfoSchema = yup.object({
+  firstName: yup.string().required("Please provide your first name"),
+  lastName: yup.string().required("Please provide your last name"),
+  dateOfBirth: yup.string().required("Please provide your date of birth"),
+  gender: yup.string().required("Please provide your gender"),
+  address: yup.string().required("Please provide an address"),
   primaryPhoneNumber: yup
     .string()
     .matches(/^\+1 \d{3}-\d{3}-\d{4}$/, "Please provide a valid phone number")
@@ -56,20 +58,4 @@ export const patientContactInfoSchema = yup.object({
     .required("Please provide a valid emergency contact number"),
   emergencyContactRelationship: yup.string(),
   email: yup.string().email("Please provide a valid email"),
-});
-
-export const patientInfoSchema = yup.object({
-  firstName: yup.string().required("Please provide your first name"),
-  lastName: yup.string().required("Please provide your last name"),
-  dateOfBirth: yup.string().required("Please provide your date of birth"),
-  gender: yup.string().required("Please provide your gender"),
-  address: yup.string().required("Please provide an address"),
-});
-
-export const checkinDataSchema = yup.object({
-  patientInfo: {
-    healthCardInfo: healthCardNumberSchema,
-    contactInformation: patientContactInfoSchema,
-    ...patientInfoSchema,
-  },
 });

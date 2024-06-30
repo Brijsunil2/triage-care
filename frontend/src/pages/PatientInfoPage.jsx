@@ -1,42 +1,51 @@
 import "../styles/PatientInfoPage.css";
 import logo from "../assets/triage_care_logo.png";
-import { Container, Button } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import HealthCardForm from "../components/HealthCardForm";
 import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
 import { useContext } from "react";
-import { initialCheckinData } from "../models/checkinDataSchemas";
+import {
+  initialCheckinData,
+  patientInfoFormSchema,
+} from "../models/checkinDataSchemas";
+import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
   const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
+  const { Formik } = formik;
 
   const onClickPageBack = () => {
     prevPage();
     setCheckinData({ ...initialCheckinData });
   };
 
-  const onClickPageNext = () => {
-    const healthCardForm = document.getElementById("healthCardForm")
-    const patientInfoForm = document.getElementById("patientInfoForm");
-    const patientContactInfoForm = document.getElementById(
-      "patientContactInfoForm"
-    );
+  const submitHandler = (values) => {
+    setCheckinData({
+      ...checkinData,
+      patientInfo: {
+        ...checkinData.patientInfo,
+        healthCardInfo: {
+          healthCardNumber: values.healthCardNumber,
+        },
+        firstName: values.firstName,
+        lastName: values.lastName,
+        dateOfBirth: values.dateOfBirth,
+        gender: values.gender,
+        address: values.address,
+        contactInformation: {
+          primaryPhoneNumber: values.primaryPhoneNumber,
+          secondaryPhoneNumber: values.secondaryPhoneNumber,
+          emergencyContact: values.emergencyContact,
+          emergencyContactRelationship: values.emergencyContactRelationship,
+          email: values.email,
+        },
+      },
+    });
 
-    if (patientInfoForm && patientContactInfoForm && healthCardForm) {
-      healthCardForm.dispatchEvent(
-        new Event("submit", { cancelable: true, bubbles: true })
-      );
-
-      patientInfoForm.dispatchEvent(
-        new Event("submit", { cancelable: true, bubbles: true })
-      );
-      
-      patientContactInfoForm.dispatchEvent(
-        new Event("submit", { cancelable: true, bubbles: true })
-      );
-    }
+    nextPage();
   };
 
   return (
@@ -54,31 +63,68 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
           <h1 className="pt-4">Patient Information</h1>
         </Container>
 
-        <HealthCardForm />
+        <Formik
+          validationSchema={patientInfoFormSchema}
+          onSubmit={submitHandler}
+          initialValues={{
+            healthCardNumber: "",
+            firstName: "",
+            lastName: "",
+            dateOfBirth: "",
+            gender: "",
+            address: "",
+            primaryPhoneNumber: "",
+            secondaryPhoneNumber: "",
+            emergencyContact: "",
+            emergencyContactRelationship: "",
+            email: "",
+          }}
+        >
+          {({ handleSubmit, handleChange, values, errors, touched }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              <HealthCardForm
+                handleChange={handleChange}
+                values={values}
+                errors={errors}
+                touched={touched}
+              />
+              <hr />
 
-        <hr />
+              <PatientInfoForm
+                handleChange={handleChange}
+                values={values}
+                errors={errors}
+                touched={touched}
+              />
 
-        <PatientInfoForm />
-        <PatientContactInfoForm />
+              <PatientContactInfoForm
+                handleChange={handleChange}
+                values={values}
+                errors={errors}
+                touched={touched}
+              />
 
-        <div className="d-flex justify-content-between">
-          <Button
-            className="px-4 py-2 my-4 d-flex align-items-center"
-            style={{ verticalAlign: "bottom" }}
-            onClick={onClickPageBack}
-          >
-            <IoIosArrowBack />
-            Back
-          </Button>
-          <Button
-            className="px-4 py-2 my-4 d-flex align-items-center"
-            style={{ verticalAlign: "bottom" }}
-            onClick={onClickPageNext}
-          >
-            Next
-            <IoIosArrowForward />
-          </Button>
-        </div>
+              <div className="d-flex justify-content-between">
+                <Button
+                  className="px-4 py-2 my-4 d-flex align-items-center"
+                  style={{ verticalAlign: "bottom" }}
+                  onClick={onClickPageBack}
+                >
+                  <IoIosArrowBack />
+                  Back
+                </Button>
+                <Button
+                  type="submit"
+                  className="px-4 py-2 my-4 d-flex align-items-center"
+                  style={{ verticalAlign: "bottom" }}
+                >
+                  Next
+                  <IoIosArrowForward />
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </Container>
     </main>
   );
