@@ -17,3 +17,24 @@
   background-color: white;
   padding: 0 10px;
 }
+
+.dashedsection-container-small {
+  position: relative;
+  border: dotted 1px var(--main-light-grey);
+  border-radius: 5px;
+  margin: 12px 0;
+  padding: 1rem;
+}
+
+.dashedsection-container-small h3 {
+  position: absolute;
+  color: var(--main-bright-green);
+  width: 100%;
+  top: -12px;
+  font-size: 0.8rem;
+}
+
+.dashedsection-container-small h3 span {
+  background-color: white;
+  padding: 0 10px;
+}
