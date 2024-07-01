@@ -28,13 +28,14 @@
 
 .dashedsection-container-small h3 {
   position: absolute;
-  color: var(--main-bright-green);
-  width: 100%;
-  top: -12px;
+  top: -10px;
+  left: 0.5rem;
+  background-color: white;
   font-size: 0.8rem;
+  color: var(--main-bright-green);
+  padding: 1px 3px;
 }
 
 .dashedsection-container-small h3 span {
   background-color: white;
-  padding: 0 10px;
 }

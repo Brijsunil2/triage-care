@@ -7,8 +7,8 @@ const DashedSection = ({
   children,
   className,
   smallSection = false,
+  required = false,
 }) => {
-  
   const containerClass = smallSection
     ? classNames(
         {
@@ -26,7 +26,9 @@ const DashedSection = ({
   return (
     <div className={containerClass}>
       <h3>
-        <span>{sectionLabel}</span>
+        <span>
+          {required && <span style={{ color: "red" }}>*</span>} {sectionLabel}
+        </span>
       </h3>
       {children}
     </div>

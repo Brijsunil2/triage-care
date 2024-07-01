@@ -13,7 +13,6 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
 
   const onClickPageBack = () => {
     prevPage();
-    setCheckinData({ ...initialCheckinData });
   };
 
   const submitHandler = (values) => {};
