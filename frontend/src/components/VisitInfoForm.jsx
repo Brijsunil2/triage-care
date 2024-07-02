@@ -2,6 +2,7 @@ import { Form, Row, Col, Container } from "react-bootstrap";
 import DashedSection from "./DashedSection";
 import RangeSlider from "./RangeSlider";
 import "../styles/VisitInfoForm.css";
+import TagInputBox from "./TagInputBox";
 
 const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
   return (
@@ -32,12 +33,12 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
 
       <Row>
         <Col>
-          <Form.Group className="input-container">
-            <DashedSection
-              sectionLabel="Pain Scale"
-              smallSection={true}
-              required={true}
-            >
+          <DashedSection
+            sectionLabel="Pain Scale"
+            smallSection={true}
+            required={true}
+          >
+            <Form.Group className="input-container">
               <p className="p-small text-center">
                 Please use the slider below to indicate your current level of
                 pain. 1 represents no pain and 10 represents the worst pain
@@ -54,8 +55,21 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
               <p className="p-small pain-rating-text text-center mb-0">
                 Pain Rating: {values.patientPainRating}
               </p>
-            </DashedSection>
-          </Form.Group>
+            </Form.Group>
+          </DashedSection>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <DashedSection sectionLabel="Symptoms" smallSection={true}>
+            <Form.Group className="input-container">
+              <p className="p-small text-center pt-0">
+                Please enter all the symptoms you are currently experiencing.
+                After every symptom press enter.
+              </p>
+              <TagInputBox values={values.symptoms} placeholder="Add a symptom"/>
+            </Form.Group>
+          </DashedSection>
         </Col>
       </Row>
     </Container>
