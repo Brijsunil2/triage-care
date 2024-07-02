@@ -16,7 +16,6 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
             <Form.Control
               id="reasonForVisitInput"
               as="textarea"
-              placeholder="Reason for visit"
               name="reasonForVisit"
               value={values.reasonForVisit}
               style={{ minHeight: "100px" }}
@@ -30,7 +29,6 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
           </Form.Group>
         </Col>
       </Row>
-
       <Row>
         <Col>
           <DashedSection
@@ -67,8 +65,67 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
                 Please enter all the symptoms you are currently experiencing.
                 After every symptom press enter.
               </p>
-              <TagInputBox values={values.symptoms} placeholder="Add a symptom"/>
+              <TagInputBox
+                values={values.symptoms}
+                placeholder="Add a symptom"
+              />
             </Form.Group>
+          </DashedSection>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <DashedSection sectionLabel="Medical History">
+            <Row>
+              <Col>
+                <DashedSection sectionLabel="Medications" smallSection={true}>
+                  <Form.Group className="input-container">
+                    <p className="p-small text-center pt-0">
+                      Please enter all the medications you are currently using.
+                      After every medication press enter.
+                    </p>
+                    <TagInputBox
+                      values={values.currentMedications}
+                      placeholder="Add a medication"
+                    />
+                  </Form.Group>
+                </DashedSection>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="input-container">
+                  <Form.Label htmlFor="allergiesInput">
+                    Allergies
+                  </Form.Label>
+                  <Form.Control
+                    id="allergiesInput"
+                    as="textarea"
+                    name="allergies"
+                    value={values.allergies}
+                    style={{ minHeight: "100px" }}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="input-container">
+                  <Form.Label htmlFor="chronicConditionsInput">
+                    Chronic Conditions
+                  </Form.Label>
+                  <Form.Control
+                    id="chronicConditionsInput"
+                    as="textarea"
+                    name="chronicConditions"
+                    value={values.chronicConditions}
+                    style={{ minHeight: "100px" }}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
           </DashedSection>
         </Col>
       </Row>

@@ -39,7 +39,10 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
           initialValues={{
             reasonForVisit: "",
             patientPainRating: 0,
-            symptoms: []
+            symptoms: [],
+            currentMedications: [],
+            allergies: "",
+            chronicConditions: ""
           }}
         >
           {({ handleSubmit, handleChange, values, errors, touched }) => (

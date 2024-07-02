@@ -34,8 +34,10 @@
   font-size: 0.8rem;
   color: var(--main-bright-green);
   padding: 1px 3px;
+  width: fit-content;
 }
 
 .dashedsection-container-small h3 span {
   background-color: white;
+  padding: 0;
 }

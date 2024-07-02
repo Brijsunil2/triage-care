@@ -1,6 +1,4 @@
 .tag-input-container {
-  border: 1px solid var(--main-light-grey);
-  border-radius: 5px;
   padding: 5px;
   padding-top: 10px;
 }
@@ -28,3 +26,4 @@
   cursor: pointer;
   color: #ff0000;
 }
+
