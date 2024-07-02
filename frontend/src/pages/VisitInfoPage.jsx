@@ -6,6 +6,7 @@ import VisitInfoForm from "../components/VisitInfoForm";
 import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
 import { useContext } from "react";
 import * as formik from "formik";
+import { patientVisitInfoSchema } from "../models/checkinDataSchemas";
 
 const VisitInfoPage = ({ prevPage, nextPage }) => {
   const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
@@ -15,7 +16,9 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
     prevPage();
   };
 
-  const submitHandler = (values) => {};
+  const submitHandler = (values) => {
+    console.log(values)
+  };
 
   return (
     <main className="visitinfopage-container">
@@ -34,7 +37,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
         </Container>
 
         <Formik
-          // validationSchema={}
+          validationSchema={patientVisitInfoSchema}
           onSubmit={submitHandler}
           initialValues={{
             reasonForVisit: "",

@@ -22,8 +22,26 @@ export const patientInfo = {
   contactInformation: patientContactInfo,
 };
 
+export const patientMedicalHistory = {
+  currentMedications: [],
+  allergies: "",
+  chronicConditions: "",
+};
+
+export const patientVisitInfo = {
+  reasonForVisit: "",
+  patientPainRating: 0,
+  symptoms: [],
+  medicalHistory: {
+    currentMedications: [],
+    allergies: "",
+    chronicConditions: "",
+  },
+};
+
 export const initialCheckinData = {
   patientInfo: patientInfo,
+  visitInfo: patientVisitInfo,
 };
 
 export const patientInfoFormSchema = yup.object({
@@ -58,4 +76,18 @@ export const patientInfoFormSchema = yup.object({
     .required("Please provide a valid emergency contact number"),
   emergencyContactRelationship: yup.string(),
   email: yup.string().email("Please provide a valid email"),
+});
+
+export const patientVisitInfoSchema = yup.object({
+  reasonForVisit: yup
+    .string()
+    .required("Please enter the reason for your visit today"),
+  patientPainRating: yup
+    .number()
+    .positive("Pain rating must be greater than zero")
+    .required(),
+  symptoms: yup.array(),
+  currentMedications: yup.array(),
+  allergies: yup.string().notRequired(),
+  chronicConditions: yup.string().notRequired(),
 });
