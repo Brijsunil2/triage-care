@@ -37,7 +37,8 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
           // validationSchema={}
           onSubmit={submitHandler}
           initialValues={{
-            reasonForVisit: ""
+            reasonForVisit: "",
+            patientPainRating: 0
           }}
         >
           {({ handleSubmit, handleChange, values, errors, touched }) => (

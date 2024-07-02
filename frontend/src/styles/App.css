@@ -51,6 +51,10 @@ p {
   font-size: 1rem;
 }
 
+p.p-small {
+  font-size: 0.75rem
+}
+
 input {
   border-color: var(--main-light-grey);
 }
@@ -76,6 +80,10 @@ input[type="button"] {
 
 input[type="button"]:hover  {
   background-color: var(--main-darkend-green);
+}
+
+input[type='range'] {
+  accent-color: var(--main-deep-blue);
 }
 
 .form-control:focus {

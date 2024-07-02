@@ -1,5 +1,7 @@
 import { Form, Row, Col, Container } from "react-bootstrap";
 import DashedSection from "./DashedSection";
+import RangeSlider from "./RangeSlider";
+import "../styles/VisitInfoForm.css";
 
 const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
   return (
@@ -11,7 +13,7 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
               <span style={{ color: "red" }}>*</span> Reason for Visit
             </Form.Label>
             <Form.Control
-              id="reasonForVisit"
+              id="reasonForVisitInput"
               as="textarea"
               placeholder="Reason for visit"
               name="reasonForVisit"
@@ -31,8 +33,27 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
       <Row>
         <Col>
           <Form.Group className="input-container">
-            <DashedSection sectionLabel="Pain Scale" smallSection={true} required={true}>
-
+            <DashedSection
+              sectionLabel="Pain Scale"
+              smallSection={true}
+              required={true}
+            >
+              <p className="p-small text-center">
+                Please use the slider below to indicate your current level of
+                pain. 1 represents no pain and 10 represents the worst pain
+                imaginable.
+              </p>
+              <Container>
+                <RangeSlider
+                  id="patientPainRatingInput"
+                  name="patientPainRating"
+                  value={values.patientPainRating}
+                  setValue={handleChange}
+                />
+              </Container>
+              <p className="p-small pain-rating-text text-center mb-0">
+                Pain Rating: {values.patientPainRating}
+              </p>
             </DashedSection>
           </Form.Group>
         </Col>
