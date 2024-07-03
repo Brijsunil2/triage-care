@@ -1,0 +1,9 @@
+.policiesconditionspage-container .main-logo {
+  height: 8rem;
+  width: auto;
+}
+
+#patientAcknowledgementCheckBox:checked {
+  accent-color: var(--main-bright-green);
+  border: solid white;
+}

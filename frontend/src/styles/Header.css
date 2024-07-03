@@ -2,10 +2,6 @@
   color: black !important;
 }
 
-#blackTextCheckbox {
-  transform: scale(1.5);
-}
-
 #blackTextCheckbox:checked {
   accent-color: var(--main-bright-green);
   border: solid white;

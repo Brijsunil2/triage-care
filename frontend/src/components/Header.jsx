@@ -3,7 +3,6 @@ import "../styles/Header.css";
 
 const Header = () => {
   const onCheckBoxChange = (e) => {
-    console.log("Checkbox state [Header]: " + e.target.checked)
     if (e.target.checked) {
       document.body.classList.add('text-black');
     } else {

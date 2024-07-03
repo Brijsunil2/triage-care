@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import TriageStartPage from "./TriageStartPage";
 import PatientInfoPage from "./PatientInfoPage";
 import VisitInfoPage from "./VisitInfoPage";
+import PoliciesAndConditionsPage from "./PoliciesAndConditionsPage";
 import { Container } from "react-bootstrap";
 import { PatientCheckinDataProvider } from "../context/PatientCheckinDataContext";
 
@@ -26,6 +27,8 @@ const CheckInPage = () => {
             nextPage={() => setStep(4)}
           />
         )}
+        {step === 4 && <PoliciesAndConditionsPage prevPage={() => setStep(3)}
+            nextPage={() => setStep(5)}/>}
       </PatientCheckinDataProvider>
     </Container>
   );
