@@ -17,7 +17,21 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
   };
 
   const submitHandler = (values) => {
-    console.log(values)
+    setCheckinData({
+      ...checkinData,
+      visitInfo: {
+        ...checkinData.visitInfo,
+        reasonForVisit: values.reasonForVisit,
+          patientPainRating: values.patientPainRating,
+          symptoms: [...values.symptoms],
+          medicalHistory: {
+            currentMedications: [...values.currentMedications],
+            allergies: values.allergies,
+            chronicConditions: values.chronicConditions
+          }
+      }
+    })
+    nextPage();
   };
 
   return (

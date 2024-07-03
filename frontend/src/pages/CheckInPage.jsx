@@ -13,15 +13,19 @@ const CheckInPage = () => {
     <Container className="checkinpage-container">
       <PatientCheckinDataProvider>
         <Header />
-        {/* {step === 1 && <TriageStartPage nextPage={() => setStep(2)} />}
+        {step === 1 && <TriageStartPage nextPage={() => setStep(2)} />}
         {step === 2 && (
           <PatientInfoPage
             prevPage={() => setStep(1)}
             nextPage={() => setStep(3)}
           />
-        )} */}
-
-        {step === 1 && <VisitInfoPage />}
+        )}
+        {step === 3 && (
+          <VisitInfoPage
+            prevPage={() => setStep(2)}
+            nextPage={() => setStep(4)}
+          />
+        )}
       </PatientCheckinDataProvider>
     </Container>
   );

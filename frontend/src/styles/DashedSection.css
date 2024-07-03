@@ -41,3 +41,7 @@
   background-color: white;
   padding: 0;
 }
+
+.dashedsection-error {
+  border-color: var(--bs-form-invalid-color);
+}

@@ -20,6 +20,7 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
               value={values.reasonForVisit}
               style={{ minHeight: "100px" }}
               onChange={handleChange}
+              isInvalid={touched.reasonForVisit && errors.reasonForVisit}
             />
             {touched.reasonForVisit && errors.reasonForVisit && (
               <div className="invalid-feedback d-block">
@@ -35,6 +36,11 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
             sectionLabel="Pain Scale"
             smallSection={true}
             required={true}
+            className={
+              touched.patientPainRating &&
+              errors.patientPainRating &&
+              "dashedsection-error"
+            }
           >
             <Form.Group className="input-container">
               <p className="p-small text-center">
@@ -50,9 +56,22 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
                   setValue={handleChange}
                 />
               </Container>
-              <p className="p-small pain-rating-text text-center mb-0">
+              <p
+                className="p-small pain-rating-text text-center mb-0"
+                style={
+                  touched.patientPainRating &&
+                  errors.patientPainRating && {
+                    color: "var(--bs-form-invalid-color)",
+                  }
+                }
+              >
                 Pain Rating: {values.patientPainRating}
               </p>
+              {touched.patientPainRating && errors.patientPainRating && (
+                <div className="invalid-feedback d-block">
+                  {errors.patientPainRating}
+                </div>
+              )}
             </Form.Group>
           </DashedSection>
         </Col>
@@ -95,9 +114,7 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
             <Row>
               <Col>
                 <Form.Group className="input-container">
-                  <Form.Label htmlFor="allergiesInput">
-                    Allergies
-                  </Form.Label>
+                  <Form.Label htmlFor="allergiesInput">Allergies</Form.Label>
                   <Form.Control
                     id="allergiesInput"
                     as="textarea"
