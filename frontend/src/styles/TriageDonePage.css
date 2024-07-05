@@ -1,0 +1,27 @@
+.triagedonepage-container .main-logo {
+  height: 12rem;
+  width: auto;
+}
+
+.triagedonepage-container {
+  display: flex;
+  min-height: fit-content;
+  height: calc(100vh - 10rem);
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 576px) {
+  .triagedonepage-container .main-logo {
+    height: 10rem;
+    width: auto;
+  }
+}
+
+.triagedonepage-container h2 {
+  font-size: 1.2rem;
+}
+
+.triagedonepage-container h3 {
+  font-size: 1rem;
+}
