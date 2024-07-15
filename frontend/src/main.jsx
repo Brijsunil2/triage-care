@@ -8,7 +8,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import { store } from "./store.js";
+import store from "./store.js";
 import { Provider } from "react-redux";
 
 const CheckInPage = lazy(() => import("./pages/CheckInPage.jsx"));
