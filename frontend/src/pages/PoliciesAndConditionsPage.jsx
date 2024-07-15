@@ -6,8 +6,7 @@ import { useState } from "react";
 
 const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
   const [patientAcknowledgement, setPatientAcknowledgement] = useState(false);
-  const [patientAcknowledgementError, setPatientAcknowledgementError] =
-    useState(false);
+  const [patientAcknowledgementError, setPatientAcknowledgementError] = useState(false);
 
   const onCheckBoxChange = (e) => {
     if (e.target.checked) {
@@ -90,7 +89,7 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
             style={{ verticalAlign: "bottom" }}
             onClick={onClickPageNext}
           >
-            Next
+            Submit
             <IoIosArrowForward />
           </Button>
         </div>
