@@ -3,6 +3,7 @@ import logo from "../assets/triage_care_logo.png";
 import { Container, Button } from "react-bootstrap";
 
 const TriageStartPage = ({ nextPage }) => {
+
   return (
     <main className="triagestartpage-container text-center">
       <Container>
