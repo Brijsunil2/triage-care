@@ -5,48 +5,111 @@ import HealthCardForm from "../components/HealthCardForm";
 import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
-import { useContext } from "react";
-import {
-  initialCheckinData,
-  patientInfoFormSchema,
-} from "../models/checkinDataSchemas";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePatientInfo } from "../slices/checkInDataSlice";
+import { patientInfoFormSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
-  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
+  const checkinData = useSelector((state) => state.checkInData.patientInfo);
+  const dispatch = useDispatch();
   const { Formik } = formik;
 
   const onClickPageBack = () => {
     prevPage();
-    setCheckinData({ ...initialCheckinData });
   };
 
   const submitHandler = (values) => {
-    setCheckinData({
-      ...checkinData,
-      patientInfo: {
-        ...checkinData.patientInfo,
-        healthCardInfo: {
-          healthCardNumber: values.healthCardNumber,
+    dispatch(
+      updatePatientInfo({
+        patientInfo: {
+          ...checkinData.patientInfo,
+          healthCardInfo: {
+            healthCardNumber: values.healthCardNumber,
+          },
+          firstName: values.firstName,
+          lastName: values.lastName,
+          dateOfBirth: values.dateOfBirth,
+          gender: values.gender,
+          address: values.address,
+          contactInformation: {
+            primaryPhoneNumber: values.primaryPhoneNumber,
+            secondaryPhoneNumber: values.secondaryPhoneNumber,
+            emergencyContact: values.emergencyContact,
+            emergencyContactRelationship: values.emergencyContactRelationship,
+            email: values.email,
+          },
         },
-        firstName: values.firstName,
-        lastName: values.lastName,
-        dateOfBirth: values.dateOfBirth,
-        gender: values.gender,
-        address: values.address,
-        contactInformation: {
-          primaryPhoneNumber: values.primaryPhoneNumber,
-          secondaryPhoneNumber: values.secondaryPhoneNumber,
-          emergencyContact: values.emergencyContact,
-          emergencyContactRelationship: values.emergencyContactRelationship,
-          email: values.email,
-        },
-      },
-    });
+      })
+    );
 
     nextPage();
   };
+
+  const formikSection = (
+    <Formik
+      validationSchema={patientInfoFormSchema}
+      onSubmit={submitHandler}
+      initialValues={{
+        healthCardNumber: "",
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        gender: "",
+        address: "",
+        primaryPhoneNumber: "",
+        secondaryPhoneNumber: "",
+        emergencyContact: "",
+        emergencyContactRelationship: "",
+        email: "",
+      }}
+    >
+      {({ handleSubmit, handleChange, values, errors, touched }) => (
+        <Form noValidate onSubmit={handleSubmit}>
+          <HealthCardForm
+            handleChange={handleChange}
+            values={values}
+            errors={errors}
+            touched={touched}
+          />
+          <hr />
+
+          <PatientInfoForm
+            handleChange={handleChange}
+            values={values}
+            errors={errors}
+            touched={touched}
+          />
+
+          <PatientContactInfoForm
+            handleChange={handleChange}
+            values={values}
+            errors={errors}
+            touched={touched}
+          />
+
+          <div className="d-flex justify-content-between">
+            <Button
+              className="px-4 py-2 my-4 d-flex align-items-center"
+              style={{ verticalAlign: "bottom" }}
+              onClick={onClickPageBack}
+            >
+              <IoIosArrowBack />
+              Back
+            </Button>
+            <Button
+              type="submit"
+              className="px-4 py-2 my-4 d-flex align-items-center"
+              style={{ verticalAlign: "bottom" }}
+            >
+              Next
+              <IoIosArrowForward />
+            </Button>
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
 
   return (
     <main className="patientinfopage-container">
@@ -62,69 +125,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
 
           <h1 className="pt-4">Patient Information</h1>
         </Container>
-
-        <Formik
-          validationSchema={patientInfoFormSchema}
-          onSubmit={submitHandler}
-          initialValues={{
-            healthCardNumber: "",
-            firstName: "",
-            lastName: "",
-            dateOfBirth: "",
-            gender: "",
-            address: "",
-            primaryPhoneNumber: "",
-            secondaryPhoneNumber: "",
-            emergencyContact: "",
-            emergencyContactRelationship: "",
-            email: "",
-          }}
-        >
-          {({ handleSubmit, handleChange, values, errors, touched }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <HealthCardForm
-                handleChange={handleChange}
-                values={values}
-                errors={errors}
-                touched={touched}
-              />
-              <hr />
-
-              <PatientInfoForm
-                handleChange={handleChange}
-                values={values}
-                errors={errors}
-                touched={touched}
-              />
-
-              <PatientContactInfoForm
-                handleChange={handleChange}
-                values={values}
-                errors={errors}
-                touched={touched}
-              />
-
-              <div className="d-flex justify-content-between">
-                <Button
-                  className="px-4 py-2 my-4 d-flex align-items-center"
-                  style={{ verticalAlign: "bottom" }}
-                  onClick={onClickPageBack}
-                >
-                  <IoIosArrowBack />
-                  Back
-                </Button>
-                <Button
-                  type="submit"
-                  className="px-4 py-2 my-4 d-flex align-items-center"
-                  style={{ verticalAlign: "bottom" }}
-                >
-                  Next
-                  <IoIosArrowForward />
-                </Button>
-              </div>
-            </Form>
-          )}
-        </Formik>
+        {formikSection}
       </Container>
     </main>
   );
