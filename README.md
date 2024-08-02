@@ -14,5 +14,8 @@ Frontend:
 - CSS3
 - JavaScript (ES6+)
 - React.js (React Vite)
+- React Bootstrap
+- Redux Toolkit
+
 Other Tools:
 - Git for version control
