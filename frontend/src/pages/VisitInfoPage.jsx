@@ -3,13 +3,15 @@ import { Form, Container, Button } from "react-bootstrap";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import logo from "../assets/triage_care_logo.png";
 import VisitInfoForm from "../components/VisitInfoForm";
-import { PatientCheckinDataContext } from "../context/PatientCheckinDataContext";
-import { useContext } from "react";
 import * as formik from "formik";
 import { patientVisitInfoSchema } from "../models/checkinDataSchemas";
+import { useSelector, useDispatch } from "react-redux";
+import { updateVisitInfo } from "../slices/checkInDataSlice";
 
 const VisitInfoPage = ({ prevPage, nextPage }) => {
-  const { checkinData, setCheckinData } = useContext(PatientCheckinDataContext);
+  const checkInData = useSelector((state) => state.checkInData.visitInfo);
+  const dispatch = useDispatch();
+
   const { Formik } = formik;
 
   const onClickPageBack = () => {
@@ -17,20 +19,21 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
   };
 
   const submitHandler = (values) => {
-    setCheckinData({
-      ...checkinData,
-      visitInfo: {
-        ...checkinData.visitInfo,
-        reasonForVisit: values.reasonForVisit,
+    dispatch(
+      updateVisitInfo({
+        visitInfo: {
+          ...checkInData.visitInfo,
+          reasonForVisit: values.reasonForVisit,
           patientPainRating: values.patientPainRating,
           symptoms: [...values.symptoms],
           medicalHistory: {
             currentMedications: [...values.currentMedications],
             allergies: values.allergies,
-            chronicConditions: values.chronicConditions
-          }
-      }
-    })
+            chronicConditions: values.chronicConditions,
+          },
+        },
+      })
+    );
     nextPage();
   };
 
@@ -59,7 +62,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
             symptoms: [],
             currentMedications: [],
             allergies: "",
-            chronicConditions: ""
+            chronicConditions: "",
           }}
         >
           {({ handleSubmit, handleChange, values, errors, touched }) => (

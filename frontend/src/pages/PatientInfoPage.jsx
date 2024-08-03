@@ -11,7 +11,7 @@ import { patientInfoFormSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
-  const checkinData = useSelector((state) => state.checkInData.patientInfo);
+  const checkInData = useSelector((state) => state.checkInData.patientInfo);
   const dispatch = useDispatch();
   const { Formik } = formik;
 
@@ -23,7 +23,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
     dispatch(
       updatePatientInfo({
         patientInfo: {
-          ...checkinData.patientInfo,
+          ...checkInData.patientInfo,
           healthCardInfo: {
             healthCardNumber: values.healthCardNumber,
           },

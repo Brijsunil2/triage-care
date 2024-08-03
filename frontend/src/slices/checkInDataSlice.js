@@ -13,10 +13,14 @@ export const checkInDataSlice = createSlice({
     updateVisitInfo: (state, action) => {
       state.visitInfo = action.payload.visitInfo;
     },
+    submitCheckInData: (state) => {
+      state.acceptTermsAndConditions = new Date();
+    },
     resetCheckInData: (state) => (state = { ...initialCheckinData }),
   },
 });
 
-export const { updatePatientInfo, updateVisitInfo, resetCheckInData } = checkInDataSlice.actions;
+export const { updatePatientInfo, updateVisitInfo, resetCheckInData } =
+  checkInDataSlice.actions;
 
 export default checkInDataSlice.reducer;
