@@ -6,10 +6,10 @@ import VisitInfoForm from "../components/VisitInfoForm";
 import * as formik from "formik";
 import { patientVisitInfoSchema } from "../models/checkinDataSchemas";
 import { useSelector, useDispatch } from "react-redux";
-import { updateVisitInfo } from "../slices/checkInDataSlice";
+import { updateVisitInfo, getVisitInfo } from "../slices/checkInDataSlice";
 
 const VisitInfoPage = ({ prevPage, nextPage }) => {
-  const checkInData = useSelector((state) => state.checkInData.visitInfo);
+  const visitInfo = useSelector(getVisitInfo);
   const dispatch = useDispatch();
 
   const { Formik } = formik;
@@ -22,7 +22,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
     dispatch(
       updateVisitInfo({
         visitInfo: {
-          ...checkInData.visitInfo,
+          visitInfo,
           reasonForVisit: values.reasonForVisit,
           patientPainRating: values.patientPainRating,
           symptoms: [...values.symptoms],

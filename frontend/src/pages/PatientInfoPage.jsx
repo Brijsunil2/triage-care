@@ -6,12 +6,12 @@ import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePatientInfo } from "../slices/checkInDataSlice";
+import { updatePatientInfo, getPatientInfo } from "../slices/checkInDataSlice";
 import { patientInfoFormSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
-  const checkInData = useSelector((state) => state.checkInData.patientInfo);
+  const patientInfo = useSelector(getPatientInfo);
   const dispatch = useDispatch();
   const { Formik } = formik;
 
@@ -23,7 +23,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
     dispatch(
       updatePatientInfo({
         patientInfo: {
-          ...checkInData.patientInfo,
+          ...patientInfo,
           healthCardInfo: {
             healthCardNumber: values.healthCardNumber,
           },
