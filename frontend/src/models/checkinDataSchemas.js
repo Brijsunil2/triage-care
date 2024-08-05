@@ -42,7 +42,7 @@ export const patientVisitInfo = {
 export const initialCheckinData = {
   patientInfo: patientInfo,
   visitInfo: patientVisitInfo,
-  acceptTermsAndConditions: ""
+  patientAcknowledgement: ""
 };
 
 export const patientInfoFormSchema = yup.object({

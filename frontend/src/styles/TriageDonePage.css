@@ -6,7 +6,6 @@
 .triagedonepage-container {
   display: flex;
   min-height: fit-content;
-  height: calc(100vh - 10rem);
   justify-content: center;
   align-items: center;
 }

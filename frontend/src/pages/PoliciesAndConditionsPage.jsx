@@ -3,14 +3,15 @@ import logo from "../assets/triage_care_logo.png";
 import "../styles/PoliciesAndConditionsPage.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { submitCheckInData } from "../slices/checkInDataSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { submitCheckInData, getCheckInData } from "../slices/checkInDataSlice";
 
 const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
   const [patientAcknowledgement, setPatientAcknowledgement] = useState(false);
   const [patientAcknowledgementError, setPatientAcknowledgementError] =
     useState(false);
 
+  const checkInData = useSelector(getCheckInData);
   const dispatch = useDispatch();
 
   const onCheckBoxChange = (e) => {
@@ -27,7 +28,7 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
 
   const onClickPageNext = () => {
     if (patientAcknowledgement) {
-      dispatch(submitCheckInData());
+      dispatch(submitCheckInData(checkInData.checkInData));
       nextPage();
     } else {
       setPatientAcknowledgementError(true);
