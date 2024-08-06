@@ -1,20 +1,29 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 import { initialCheckinData } from "../models/checkinDataSchemas";
 
 const CHECK_IN_DATA_URL = "http://localhost:4000/checkInData";
 
-const initialState = {
+const checkInDataAdaptor = createEntityAdapter({});
+
+const initialState = checkInDataAdaptor.getInitialState({
   checkInData: { ...initialCheckinData },
   status: "idle",
   error: null,
-};
+});
 
 export const submitCheckInData = createAsyncThunk(
   "checkInData",
   async (checkInData) => {
     const res = await fetch(CHECK_IN_DATA_URL, {
       method: "POST",
-      body: JSON.stringify({ ...checkInData, patientAcknowledgement: new Date().toISOString() }),
+      body: JSON.stringify({
+        ...checkInData,
+        patientAcknowledgement: new Date().toISOString(),
+      }),
     });
 
     return res.data;

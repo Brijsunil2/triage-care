@@ -1,3 +1,39 @@
 {
-  "checkInData": []
+  "checkInData": [
+    {
+      "id": "9e40",
+      "patientInfo": {
+        "healthCardInfo": {
+          "healthCardNumber": "2312-312-321-DS"
+        },
+        "firstName": "Sunil",
+        "lastName": "Brijlall",
+        "dateOfBirth": "2024-07-31",
+        "gender": "Male",
+        "address": "330 Forestlawn rd",
+        "contactInformation": {
+          "primaryPhoneNumber": "+1 505-586-5343",
+          "secondaryPhoneNumber": "+1 455-555-5545",
+          "emergencyContact": "+1 435-435-4354",
+          "emergencyContactRelationship": "Voluptate dolores no",
+          "email": "brijsunil2@gmail.com"
+        }
+      },
+      "visitInfo": {
+        "reasonForVisit": "eqwe",
+        "patientPainRating": 5,
+        "symptoms": [
+          "x"
+        ],
+        "medicalHistory": {
+          "currentMedications": [
+            "y"
+          ],
+          "allergies": "q",
+          "chronicConditions": "w"
+        }
+      },
+      "patientAcknowledgement": "2024-08-06T16:36:04.891Z"
+    }
+  ]
 }
