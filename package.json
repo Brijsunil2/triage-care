@@ -1,5 +1,13 @@
 {
+  "scripts": {
+    "server": "nodemon backend/server.js",
+    "client": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
   "dependencies": {
     "react-bootstrap": "^2.10.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

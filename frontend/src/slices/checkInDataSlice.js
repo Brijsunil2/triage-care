@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import { initialCheckinData } from "../models/checkinDataSchemas";
 
-const CHECK_IN_DATA_URL = "http://localhost:4000/checkInData";
+const CHECK_IN_DATA_URL = `${process.env.REACT_APP_BACKEND}/checkInData`;
 
 const checkInDataAdaptor = createEntityAdapter({});
 
@@ -48,7 +48,6 @@ export const checkInDataSlice = createSlice({
       })
       .addCase(submitCheckInData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        console.log(action.payload);
         state.checkInData = { ...initialCheckinData };
       })
       .addCase(submitCheckInData.rejected, (state, action) => {
