@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/checkin", checkInRoutes);
+app.use("/api/triage/checkin", checkInRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();

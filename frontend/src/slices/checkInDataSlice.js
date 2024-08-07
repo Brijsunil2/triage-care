@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import { initialCheckinData } from "../models/checkinDataSchemas";
 
-const CHECK_IN_DATA_URL = `${process.env.REACT_APP_BACKEND}/checkInData`;
+const CHECK_IN_DATA_URL = `${process.env.REACT_APP_BACKEND}/api`;
 
 const checkInDataAdaptor = createEntityAdapter({});
 
@@ -18,12 +18,17 @@ const initialState = checkInDataAdaptor.getInitialState({
 export const submitCheckInData = createAsyncThunk(
   "checkInData",
   async (checkInData) => {
-    const res = await fetch(CHECK_IN_DATA_URL, {
+    const bodyData = JSON.stringify({
+      ...checkInData,
+      patientAcknowledgement: new Date().toISOString(),
+    });
+
+    const res = await fetch(`${CHECK_IN_DATA_URL}/triage/checkin`, {
       method: "POST",
-      body: JSON.stringify({
-        ...checkInData,
-        patientAcknowledgement: new Date().toISOString(),
-      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: bodyData,
     });
 
     return res.data;
