@@ -1,11 +1,6 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
-} from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 import { initialCheckinData } from "../models/checkinDataSchemas";
-
-const CHECK_IN_DATA_URL = `${process.env.REACT_APP_BACKEND}/api`;
+import { apiSlice } from "./apiSlice";
 
 const checkInDataAdaptor = createEntityAdapter({});
 
@@ -14,26 +9,6 @@ const initialState = checkInDataAdaptor.getInitialState({
   status: "idle",
   error: null,
 });
-
-export const submitCheckInData = createAsyncThunk(
-  "checkInData",
-  async (checkInData) => {
-    const bodyData = JSON.stringify({
-      ...checkInData,
-      patientAcknowledgement: new Date().toISOString(),
-    });
-
-    const res = await fetch(`${CHECK_IN_DATA_URL}/triage/checkin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: bodyData,
-    });
-
-    return res.data;
-  }
-);
 
 export const checkInDataSlice = createSlice({
   name: "checkInData",
@@ -46,22 +21,24 @@ export const checkInDataSlice = createSlice({
       state.checkInData.visitInfo = action.payload.visitInfo;
     },
   },
-  extraReducers(builder) {
-    builder
-      .addCase(submitCheckInData.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(submitCheckInData.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.checkInData = { ...initialCheckinData };
-      })
-      .addCase(submitCheckInData.rejected, (state, action) => {
-        state.status = "failed";
-        console.log(action.error.message);
-        state.checkInData = { ...initialCheckinData };
-      });
-  },
 });
+
+export const checkInDataApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    submitCheckInData: builder.mutation({
+      query: (checkInData) => ({
+        url: "/api/triage/checkin",
+        method: "POST",
+        body: {
+          ...checkInData,
+          patientAcknowledgement: new Date().toISOString(),
+        },
+      }),
+    }),
+  }),
+});
+
+export const { useSubmitCheckInDataMutation } = checkInDataApiSlice;
 
 export const getPatientInfo = (state) => state.checkInData.patientInfo;
 export const getVisitInfo = (state) => state.checkInData.visitInfo;

@@ -3,16 +3,20 @@ import logo from "../assets/triage_care_logo.png";
 import "../styles/PoliciesAndConditionsPage.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { submitCheckInData, getCheckInData } from "../slices/checkInDataSlice";
+import { useSelector } from "react-redux";
+import {
+  getCheckInData,
+  useSubmitCheckInDataMutation,
+} from "../slices/checkInDataSlice";
 
 const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
   const [patientAcknowledgement, setPatientAcknowledgement] = useState(false);
   const [patientAcknowledgementError, setPatientAcknowledgementError] =
     useState(false);
 
+  const [submitCheckInData, { isLoading }] = useSubmitCheckInDataMutation();
+
   const checkInData = useSelector(getCheckInData);
-  const dispatch = useDispatch();
 
   const onCheckBoxChange = (e) => {
     if (e.target.checked) {
@@ -26,10 +30,18 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
     prevPage();
   };
 
-  const onClickPageNext = () => {
+  const onClickPageNext = async () => {
     if (patientAcknowledgement) {
-      dispatch(submitCheckInData(checkInData.checkInData));
-      nextPage();
+      try {
+        const res = await submitCheckInData(checkInData.checkInData).unwrap();
+
+        if (res) {
+          nextPage();
+        }
+
+      } catch (err) {
+        console.error("submitCheckInData", err);
+      }
     } else {
       setPatientAcknowledgementError(true);
     }

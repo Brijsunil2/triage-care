@@ -5,5 +5,5 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
 
   console.log(checkInData)
 
-  res.status(200);
+  res.status(200).json({message: "Check-in data submitted successfully"});
 });
