@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 dotenv.config({ path: './backend/.env' });
 import cors from "cors";
 
-import { connectDB } from "./config/dbConfig.js";
+import { getPgVersion } from "./config/dbConfig.js";
 import checkInRoutes from "./routes/checkInRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const port = process.env.PORT || 5000;
-connectDB();
+getPgVersion();
 
 const app = express();
 app.use(cors());

@@ -1,30 +1,31 @@
-import postgres from "postgres";
 import dotenv from "dotenv";
-dotenv.config({ path: './backend/.env' });
+dotenv.config({ path: "./backend/.env" });
+import pg from 'pg'
+const { Pool } = pg
 
-let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGPORT, ENDPOINT_ID } = process.env;
+let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGPORT } =
+  process.env;
 PGPASSWORD = decodeURIComponent(PGPASSWORD);
 
-console.log(PGHOST)
-
-const sql = postgres({
+export const pool = new Pool({
   host: PGHOST,
   database: PGDATABASE,
   username: PGUSER,
   password: PGPASSWORD,
   port: PGPORT,
-  ssl: "require",
-  connection: {
-    options: `project=${ENDPOINT_ID}`,
+  ssl: {
+    require: true,
   },
 });
 
-export const connectDB = async () => {
+export const getPgVersion = async () => {
+  const client = await pool.connect();
   try {
-    const result = await sql`select version()`;
-    console.log(result[0].version);
+    const result = await client.query("SELECT version()");
+    console.log(result.rows[0].version);
   } catch (err) {
     console.log("Database Error", err);
+  } finally {
+    client.release();
   }
 };
-
