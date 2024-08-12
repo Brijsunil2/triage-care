@@ -33,9 +33,9 @@ export const createMedicalHistoryTableQuery = `
 CREATE TABLE IF NOT EXISTS medical_history (
   id SERIAL PRIMARY KEY,
   person_id INTEGER REFERENCES person(id) ON DELETE CASCADE,
-  current_medications VARCHAR(100),
-  allergies VARCHAR(100),
-  chronic_conditions VARCHAR(100)
+  current_medications TEXT,
+  allergies TEXT,
+  chronic_conditions TEXT
 );
 `;
 
@@ -43,8 +43,8 @@ export const createPatientVisitInfoTableQuery = `
 CREATE TABLE IF NOT EXISTS patient_visit_info (
   id SERIAL PRIMARY KEY,
   person_id INTEGER REFERENCES person(id) ON DELETE CASCADE,
-  reason_for_visit VARCHAR(100) NOT NULL,
+  reason_for_visit TEXT NOT NULL,
   patient_pain_rating INTEGER NOT NULL,
-  symptoms VARCHAR(100)
+  symptoms TEXT
 );
 `;
