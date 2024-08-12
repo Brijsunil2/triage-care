@@ -3,6 +3,9 @@ import { pool } from "../config/dbConfig.js";
 import {
   insertPersonQuery,
   insertHealthCardInfoQuery,
+  insertContactInfoQuery,
+  insertMedicalHistoryQuery,
+  insertPatientVisitInfoQuery,
   getPersonByHealthCardNumberQuery,
 } from "../queries/checkInQueries.js";
 
