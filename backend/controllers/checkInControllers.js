@@ -11,8 +11,10 @@ import {
 
 export const submitTriageCheckIn = asyncHandler(async (req, res) => {
   const checkInData = await req.body;
+  const patientInfo = checkInData.patientInfo;
+  const visitInfo = checkInData.visitInfo;
   const client = await pool.connect();
-  
+
   try {
     let res = await client.query(
       getPersonByHealthCardNumberQuery(
@@ -22,17 +24,21 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
     console.log(res.rows);
 
     if (res.rows.length === 0) {
-      res = await client.query(insertPersonQuery(checkInData.patientInfo));
-      const patientID = res.rows[0].id
-
+      res = await client.query(insertPersonQuery, [
+        patientInfo.firstName,
+        patientInfo.lastName,
+        patientInfo.dateOfBirth,
+        patientInfo.gender,
+        patientInfo.address,
+      ]);
+      const patientID = res.rows[0].id;
+      console.log(patientID)
     }
-
   } catch (err) {
     console.log("Database Error", err);
     res
       .status(500)
       .json({ message: "Internal server error, data was not submitted" });
-
   } finally {
     client.release();
     res.status(200).json({ message: "Check-in data submitted successfully" });
