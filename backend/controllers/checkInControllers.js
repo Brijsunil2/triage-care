@@ -16,14 +16,14 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
   const client = await pool.connect();
 
   try {
-    let res = await client.query(
-      getPersonByHealthCardNumberQuery(
-        checkInData.patientInfo.healthCardInfo.healthCardNumber
-      )
-    );
-    console.log(res.rows);
+    await client.query("BEGIN");
+    let res = await client.query(getPersonByHealthCardNumberQuery, [
+      patientInfo.healthCardInfo.healthCardNumber,
+    ]);
 
-    if (res.rows.length === 0) {
+    let patientID = res.rows[0]?.person_id || null;
+
+    if (!patientID) {
       res = await client.query(insertPersonQuery, [
         patientInfo.firstName,
         patientInfo.lastName,
@@ -31,11 +31,43 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
         patientInfo.gender,
         patientInfo.address,
       ]);
-      const patientID = res.rows[0].id;
-      console.log(patientID)
+      patientID = res.rows[0].id;
+
+      res = await client.query(insertHealthCardInfoQuery, [
+        patientID,
+        patientInfo.healthCardInfo.healthCardNumber,
+      ]);
     }
+
+    res = await client.query(insertContactInfoQuery, [
+      patientID,
+      patientInfo.contactInformation.primaryPhoneNumber,
+      patientInfo.contactInformation.secondaryPhoneNumber,
+      patientInfo.contactInformation.emergencyContact,
+      patientInfo.contactInformation.emergencyContactRelationship,
+      patientInfo.contactInformation.email,
+    ]);
+
+    res = await client.query(insertMedicalHistoryQuery, [
+      patientID,
+      visitInfo.medicalHistory.currentMedications.join(", "),
+      visitInfo.medicalHistory.allergies,
+      visitInfo.medicalHistory.chronicConditions,
+    ]);
+
+    res = await client.query(insertPatientVisitInfoQuery, [
+      patientID,
+      visitInfo.reasonForVisit,
+      visitInfo.patientPainRating,
+      visitInfo.symptoms.join(", "),
+    ]);
+
+    await client.query("COMMIT");
+
+    console.log(`Triage submitted for patient id: ${patientID}`)
   } catch (err) {
     console.log("Database Error", err);
+    await client.query("ROLLBACK");
     res
       .status(500)
       .json({ message: "Internal server error, data was not submitted" });
@@ -44,28 +76,3 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Check-in data submitted successfully" });
   }
 });
-
-// {
-//   [0]   patientInfo: {
-//   [0]     healthCardInfo: { healthCardNumber: '2312-312-321-DS' },
-//   [0]     firstName: 'John',
-//   [0]     lastName: 'Doe',
-//   [0]     dateOfBirth: '2024-07-28',
-//   [0]     gender: 'Male',
-//   [0]     address: '2401 City Park Dr',
-//   [0]     contactInformation: {
-//   [0]       primaryPhoneNumber: '+1 682-098-0454',
-//   [0]       secondaryPhoneNumber: '',
-//   [0]       emergencyContact: '+1 654-656-5646',
-//   [0]       emergencyContactRelationship: '',
-//   [0]       email: '123john@test.ca'
-//   [0]     }
-//   [0]   },
-//   [0]   visitInfo: {
-//   [0]     reasonForVisit: 'c',
-//   [0]     patientPainRating: 4,
-//   [0]     symptoms: [],
-//   [0]     medicalHistory: { currentMedications: [], allergies: '', chronicConditions: '' }
-//   [0]   },
-//   [0]   patientAcknowledgement: '2024-08-11T21:41:46.254Z'
-//   [0] }
