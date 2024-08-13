@@ -8,6 +8,7 @@ import {
   getCheckInData,
   useSubmitCheckInDataMutation,
 } from "../slices/checkInDataSlice";
+import LoadingPage from "../pages/LoadingPage";
 
 const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
   const [patientAcknowledgement, setPatientAcknowledgement] = useState(false);
@@ -38,7 +39,6 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
         if (res) {
           nextPage();
         }
-
       } catch (err) {
         console.error("submitCheckInData", err);
       }
@@ -47,7 +47,7 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
     }
   };
 
-  return (
+  const pageContent = (
     <main className="policiesconditionspage-container text-center">
       <Container>
         <img
@@ -115,6 +115,8 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
       </Container>
     </main>
   );
+
+  return <>{isLoading ? <LoadingPage /> : pageContent}</>;
 };
 
 export default PoliciesAndConditionsPage;
