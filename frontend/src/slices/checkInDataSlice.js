@@ -1,4 +1,5 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSelector } from 'reselect';
 import { initialCheckinData } from "../models/checkinDataSchemas";
 import { apiSlice } from "./apiSlice";
 
@@ -40,11 +41,18 @@ export const checkInDataApiSlice = apiSlice.injectEndpoints({
 
 export const { useSubmitCheckInDataMutation } = checkInDataApiSlice;
 
-export const getPatientInfo = (state) => state.checkInData.patientInfo;
-export const getVisitInfo = (state) => state.checkInData.visitInfo;
-export const getCheckInData = (state) => state.checkInData;
+export const getCheckInData = (state) => state.checkInData.checkInData;
 
-export const { updatePatientInfo, updateVisitInfo, resetCheckInData } =
-  checkInDataSlice.actions;
+export const getPatientInfo = createSelector(
+  [getCheckInData],
+  (checkInData) => checkInData.patientInfo
+);
+
+export const getVisitInfo = createSelector(
+  [getCheckInData],
+  (checkInData) => checkInData.visitInfo
+);
+
+export const { updatePatientInfo, updateVisitInfo } = checkInDataSlice.actions;
 
 export default checkInDataSlice.reducer;

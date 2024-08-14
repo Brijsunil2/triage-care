@@ -12,6 +12,7 @@ import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
   const patientInfo = useSelector(getPatientInfo);
+  console.log(patientInfo);
   const dispatch = useDispatch();
   const { Formik } = formik;
 
@@ -42,27 +43,31 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
         },
       })
     );
-
     nextPage();
+  };
+
+  const initialValues = {
+    healthCardNumber: patientInfo?.healthCardInfo?.healthCardNumber || "",
+    firstName: patientInfo?.firstName || "",
+    lastName: patientInfo?.lastName || "",
+    dateOfBirth: patientInfo?.dateOfBirth || "",
+    gender: patientInfo?.gender || "",
+    address: patientInfo?.address || "",
+    primaryPhoneNumber:
+      patientInfo?.contactInformation?.primaryPhoneNumber || "",
+    secondaryPhoneNumber:
+      patientInfo?.contactInformation?.secondaryPhoneNumber || "",
+    emergencyContact: patientInfo?.contactInformation?.emergencyContact || "",
+    emergencyContactRelationship:
+      patientInfo?.contactInformation?.emergencyContactRelationship || "",
+    email: patientInfo?.contactInformation?.email || "",
   };
 
   const formikSection = (
     <Formik
       validationSchema={patientInfoFormSchema}
       onSubmit={submitHandler}
-      initialValues={{
-        healthCardNumber: "",
-        firstName: "",
-        lastName: "",
-        dateOfBirth: "",
-        gender: "",
-        address: "",
-        primaryPhoneNumber: "",
-        secondaryPhoneNumber: "",
-        emergencyContact: "",
-        emergencyContactRelationship: "",
-        email: "",
-      }}
+      initialValues={initialValues}
     >
       {({ handleSubmit, handleChange, values, errors, touched }) => (
         <Form noValidate onSubmit={handleSubmit}>
