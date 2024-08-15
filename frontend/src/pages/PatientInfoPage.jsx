@@ -12,7 +12,6 @@ import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
   const patientInfo = useSelector(getPatientInfo);
-  console.log(patientInfo);
   const dispatch = useDispatch();
   const { Formik } = formik;
 

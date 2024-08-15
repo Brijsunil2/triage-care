@@ -37,6 +37,53 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
     nextPage();
   };
 
+  const initialValues = {
+    reasonForVisit: visitInfo?.reasonForVisit || "",
+    patientPainRating: visitInfo?.patientPainRating || 0,
+    symptoms: visitInfo?.symptoms || [],
+    currentMedications: visitInfo?.medicalHistory?.currentMedications || [],
+    allergies: visitInfo?.medicalHistory?.allergies || "",
+    chronicConditions: visitInfo?.medicalHistory?.chronicConditions || "",
+  };
+
+  const formikSection = (
+    <Formik
+      validationSchema={patientVisitInfoSchema}
+      onSubmit={submitHandler}
+      initialValues={initialValues}
+    >
+      {({ handleSubmit, handleChange, values, errors, touched }) => (
+        <Form noValidate onSubmit={handleSubmit}>
+          <VisitInfoForm
+            handleChange={handleChange}
+            values={values}
+            errors={errors}
+            touched={touched}
+          />
+
+          <div className="d-flex justify-content-between">
+            <Button
+              className="px-4 py-2 my-4 d-flex align-items-center"
+              style={{ verticalAlign: "bottom" }}
+              onClick={onClickPageBack}
+            >
+              <IoIosArrowBack />
+              Back
+            </Button>
+            <Button
+              type="submit"
+              className="px-4 py-2 my-4 d-flex align-items-center"
+              style={{ verticalAlign: "bottom" }}
+            >
+              Next
+              <IoIosArrowForward />
+            </Button>
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+
   return (
     <main className="visitinfopage-container">
       <Container>
@@ -52,49 +99,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
             below.
           </p>
         </Container>
-
-        <Formik
-          validationSchema={patientVisitInfoSchema}
-          onSubmit={submitHandler}
-          initialValues={{
-            reasonForVisit: "",
-            patientPainRating: 0,
-            symptoms: [],
-            currentMedications: [],
-            allergies: "",
-            chronicConditions: "",
-          }}
-        >
-          {({ handleSubmit, handleChange, values, errors, touched }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <VisitInfoForm
-                handleChange={handleChange}
-                values={values}
-                errors={errors}
-                touched={touched}
-              />
-
-              <div className="d-flex justify-content-between">
-                <Button
-                  className="px-4 py-2 my-4 d-flex align-items-center"
-                  style={{ verticalAlign: "bottom" }}
-                  onClick={onClickPageBack}
-                >
-                  <IoIosArrowBack />
-                  Back
-                </Button>
-                <Button
-                  type="submit"
-                  className="px-4 py-2 my-4 d-flex align-items-center"
-                  style={{ verticalAlign: "bottom" }}
-                >
-                  Next
-                  <IoIosArrowForward />
-                </Button>
-              </div>
-            </Form>
-          )}
-        </Formik>
+        {formikSection}
       </Container>
     </main>
   );
