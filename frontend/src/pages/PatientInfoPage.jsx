@@ -6,7 +6,7 @@ import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePatientInfo, getPatientInfo } from "../slices/checkInDataSlice";
+import { updatePatientInfo, getPatientInfo, reset} from "../slices/checkInDataSlice";
 import { patientInfoFormSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
@@ -16,6 +16,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
   const { Formik } = formik;
 
   const onClickPageBack = () => {
+    dispatch(reset())
     prevPage();
   };
 

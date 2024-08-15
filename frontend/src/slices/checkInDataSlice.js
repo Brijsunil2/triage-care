@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 import { initialCheckinData } from "../models/checkinDataSchemas";
 import { apiSlice } from "./apiSlice";
 
@@ -20,6 +20,9 @@ export const checkInDataSlice = createSlice({
     },
     updateVisitInfo(state, action) {
       state.checkInData.visitInfo = action.payload.visitInfo;
+    },
+    reset(state) {
+      return initialState;
     },
   },
 });
@@ -53,6 +56,6 @@ export const getVisitInfo = createSelector(
   (checkInData) => checkInData.visitInfo
 );
 
-export const { updatePatientInfo, updateVisitInfo } = checkInDataSlice.actions;
+export const { updatePatientInfo, updateVisitInfo, reset } = checkInDataSlice.actions;
 
 export default checkInDataSlice.reducer;
