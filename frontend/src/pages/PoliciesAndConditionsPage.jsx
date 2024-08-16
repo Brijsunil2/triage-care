@@ -3,10 +3,11 @@ import logo from "../assets/triage_care_logo.png";
 import "../styles/PoliciesAndConditionsPage.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   getCheckInData,
   useSubmitCheckInDataMutation,
+  reset,
 } from "../slices/checkInDataSlice";
 import LoadingPage from "../pages/LoadingPage";
 
@@ -16,6 +17,7 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
     useState(false);
 
   const [submitCheckInData, { isLoading }] = useSubmitCheckInDataMutation();
+  const dispatch = useDispatch();
 
   const checkInData = useSelector(getCheckInData);
 
@@ -37,6 +39,7 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
         const res = await submitCheckInData(checkInData.checkInData).unwrap();
 
         if (res) {
+          dispatch(reset());
           nextPage();
         }
       } catch (err) {
