@@ -6,7 +6,11 @@ import PatientInfoForm from "../components/PatientInfoForm";
 import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePatientInfo, getPatientInfo, reset} from "../slices/checkInDataSlice";
+import {
+  updatePatientInfo,
+  getPatientInfo,
+  reset,
+} from "../slices/checkInDataSlice";
 import { patientInfoFormSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
@@ -16,7 +20,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
   const { Formik } = formik;
 
   const onClickPageBack = () => {
-    dispatch(reset())
+    dispatch(reset());
     prevPage();
   };
 
@@ -69,7 +73,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
       onSubmit={submitHandler}
       initialValues={initialValues}
     >
-      {({ handleSubmit, handleChange, values, errors, touched }) => (
+      {({ handleSubmit, handleChange, values, errors, touched, isValid }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <HealthCardForm
             handleChange={handleChange}
@@ -104,7 +108,9 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
             </Button>
             <Button
               type="submit"
-              className="px-4 py-2 my-4 d-flex align-items-center"
+              className={`px-4 py-2 my-4 d-flex align-items-center ${
+                !isValid && "btn-disabled"
+              }`}
               style={{ verticalAlign: "bottom" }}
             >
               Next

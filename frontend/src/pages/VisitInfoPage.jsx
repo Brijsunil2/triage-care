@@ -52,7 +52,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
       onSubmit={submitHandler}
       initialValues={initialValues}
     >
-      {({ handleSubmit, handleChange, values, errors, touched }) => (
+      {({ handleSubmit, handleChange, values, errors, touched, isValid }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <VisitInfoForm
             handleChange={handleChange}
@@ -72,7 +72,9 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
             </Button>
             <Button
               type="submit"
-              className="px-4 py-2 my-4 d-flex align-items-center"
+              className={`px-4 py-2 my-4 d-flex align-items-center ${
+                !isValid && "btn-disabled"
+              }`}
               style={{ verticalAlign: "bottom" }}
             >
               Next

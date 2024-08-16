@@ -36,7 +36,7 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
   const onClickPageNext = async () => {
     if (patientAcknowledgement) {
       try {
-        const res = await submitCheckInData(checkInData.checkInData).unwrap();
+        const res = await submitCheckInData(checkInData).unwrap();
 
         if (res) {
           dispatch(reset());
@@ -107,7 +107,9 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
             Back
           </Button>
           <Button
-            className="px-4 py-2 my-4 d-flex align-items-center"
+            className={`px-4 py-2 my-4 d-flex align-items-center ${
+              !patientAcknowledgement && "btn-disabled"
+            }`}
             style={{ verticalAlign: "bottom" }}
             onClick={onClickPageNext}
           >

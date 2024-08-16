@@ -17,29 +17,29 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
 
   try {
     await client.query("BEGIN");
-    let res = await client.query(getPersonByHealthCardNumberQuery, [
+    let resolve = await client.query(getPersonByHealthCardNumberQuery, [
       patientInfo.healthCardInfo.healthCardNumber,
     ]);
 
-    let patientID = res.rows[0]?.person_id || null;
+    let patientID = resolve.rows[0]?.person_id || null;
 
     if (!patientID) {
-      res = await client.query(insertPersonQuery, [
+      resolve = await client.query(insertPersonQuery, [
         patientInfo.firstName,
         patientInfo.lastName,
         patientInfo.dateOfBirth,
         patientInfo.gender,
         patientInfo.address,
       ]);
-      patientID = res.rows[0].id;
+      patientID = resolve.rows[0].id;
 
-      res = await client.query(insertHealthCardInfoQuery, [
+      resolve = await client.query(insertHealthCardInfoQuery, [
         patientID,
         patientInfo.healthCardInfo.healthCardNumber,
       ]);
     }
 
-    res = await client.query(insertContactInfoQuery, [
+    resolve = await client.query(insertContactInfoQuery, [
       patientID,
       patientInfo.contactInformation.primaryPhoneNumber,
       patientInfo.contactInformation.secondaryPhoneNumber,
@@ -48,14 +48,14 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
       patientInfo.contactInformation.email,
     ]);
 
-    res = await client.query(insertMedicalHistoryQuery, [
+    resolve = await client.query(insertMedicalHistoryQuery, [
       patientID,
       visitInfo.medicalHistory.currentMedications.join(", "),
       visitInfo.medicalHistory.allergies,
       visitInfo.medicalHistory.chronicConditions,
     ]);
 
-    res = await client.query(insertPatientVisitInfoQuery, [
+    resolve = await client.query(insertPatientVisitInfoQuery, [
       patientID,
       visitInfo.reasonForVisit,
       visitInfo.patientPainRating,
@@ -64,7 +64,7 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
 
     await client.query("COMMIT");
 
-    console.log(`Triage submitted for patient id: ${patientID}`)
+    console.log(`Triage submitted for patient id: ${patientID}`);
   } catch (err) {
     console.log("Database Error", err);
     await client.query("ROLLBACK");
