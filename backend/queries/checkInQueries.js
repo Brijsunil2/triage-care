@@ -30,6 +30,14 @@ SELECT person_id
   WHERE health_card_number = $1;
 `;
 
+const getPatientInfoQuery = `
+SELECT
+  *
+  FROM person p
+  LEFT JOIN contact_info c ON p.id = c.person_id
+  WHERE p.id = $1
+`;
+
 export {
   insertPersonQuery,
   insertHealthCardInfoQuery,
@@ -37,8 +45,8 @@ export {
   insertMedicalHistoryQuery,
   insertPatientVisitInfoQuery,
   getPersonByHealthCardNumberQuery,
+  getPatientInfoQuery,
 };
-
 
 // {
 //   [0]   patientInfo: {
@@ -64,4 +72,3 @@ export {
 //   [0]   },
 //   [0]   patientAcknowledgement: '2024-08-11T21:41:46.254Z'
 //   [0] }
-

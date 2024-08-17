@@ -39,10 +39,19 @@ export const checkInDataApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    searchPatientByHealthCardNumber: builder.mutation({
+      query: (healthCardNumber) => ({
+        url: `/api/triage/checkin?healthCardNumber=${healthCardNumber}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useSubmitCheckInDataMutation } = checkInDataApiSlice;
+export const {
+  useSubmitCheckInDataMutation,
+  useSearchPatientByHealthCardNumberMutation,
+} = checkInDataApiSlice;
 
 export const getCheckInData = (state) => state.checkInData.checkInData;
 
@@ -56,6 +65,7 @@ export const getVisitInfo = createSelector(
   (checkInData) => checkInData.visitInfo
 );
 
-export const { updatePatientInfo, updateVisitInfo, reset } = checkInDataSlice.actions;
+export const { updatePatientInfo, updateVisitInfo, reset } =
+  checkInDataSlice.actions;
 
 export default checkInDataSlice.reducer;

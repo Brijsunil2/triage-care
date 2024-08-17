@@ -1,10 +1,23 @@
 import { Form, Row, Button, Col } from "react-bootstrap";
 import Cleave from "cleave.js/react";
+import { useSearchPatientByHealthCardNumberMutation } from "../slices/checkInDataSlice";
 
 const HealthCardForm = ({ handleChange, values, errors, touched }) => {
-  const searchPatientOnClick = (healthCardNumber) => {
-    console.log(healthCardNumber)
-  }
+  const [searchPatientByHealthCard, { isLoading }] =
+    useSearchPatientByHealthCardNumberMutation();
+
+  const searchPatientOnClick = async (healthCardNumber, errors) => {
+    if (errors.healthCardNumber || healthCardNumber.length == 0) {
+      console.log("Error");
+    } else {
+      try {
+        const res = await searchPatientByHealthCard(healthCardNumber).unwrap();
+        console.log(res);
+      } catch (err) {
+        console.log("Cannot find health card number", err);
+      }
+    }
+  };
 
   return (
     <Row>
@@ -32,7 +45,12 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               }}
               onChange={handleChange}
             />
-            <Button className="input-btn" onClick={() => searchPatientOnClick(values.healthCardNumber)}>
+            <Button
+              className="input-btn"
+              onClick={() =>
+                searchPatientOnClick(values.healthCardNumber, errors)
+              }
+            >
               Search Patient
             </Button>
           </div>
@@ -48,5 +66,3 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
 };
 
 export default HealthCardForm;
-
-

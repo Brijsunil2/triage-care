@@ -7,6 +7,7 @@ import {
   insertMedicalHistoryQuery,
   insertPatientVisitInfoQuery,
   getPersonByHealthCardNumberQuery,
+  getPatientInfoQuery,
 } from "../queries/checkInQueries.js";
 
 export const submitTriageCheckIn = asyncHandler(async (req, res) => {
@@ -76,3 +77,31 @@ export const submitTriageCheckIn = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Check-in data submitted successfully" });
   }
 });
+
+export const getPatientInfoByHealthCardNumber = asyncHandler(
+  async (req, res) => {
+    const healthCardNumber = await req.query.healthCardNumber;
+    const client = await pool.connect();
+
+    try {
+      let resolve = await client.query(getPersonByHealthCardNumberQuery, [
+        healthCardNumber,
+      ]);
+
+      const patientID = resolve.rows[0]?.person_id || null;
+      console.log(patientID)
+
+      if (patientID) {
+        resolve = await client.query(getPatientInfoQuery, [patientID]);
+        console.log(resolve.rows[0]);
+      }
+
+      res.status(200).json({ message: "Check-in data submitted successfully" });
+    } catch (err) {
+      console.log("Database Error", err);
+      res.status(500).json({ message: "Internal server error" });
+    } finally {
+      client.release();
+    }
+  }
+);
