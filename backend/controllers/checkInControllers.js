@@ -89,14 +89,14 @@ export const getPatientInfoByHealthCardNumber = asyncHandler(
       ]);
 
       const patientID = resolve.rows[0]?.person_id || null;
-      console.log(patientID)
+      let patientInfo = null;
 
       if (patientID) {
         resolve = await client.query(getPatientInfoQuery, [patientID]);
-        console.log(resolve.rows[0]);
+        patientInfo = resolve.rows[0];
       }
 
-      res.status(200).json({ message: "Check-in data submitted successfully" });
+      res.status(200).json({ patientInfo });
     } catch (err) {
       console.log("Database Error", err);
       res.status(500).json({ message: "Internal server error" });

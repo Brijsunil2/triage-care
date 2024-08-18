@@ -1,18 +1,52 @@
 import { Form, Row, Button, Col } from "react-bootstrap";
 import Cleave from "cleave.js/react";
-import { useSearchPatientByHealthCardNumberMutation } from "../slices/checkInDataSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updatePatientInfo,
+  useSearchPatientByHealthCardNumberMutation,
+  getPatientInfo,
+} from "../slices/checkInDataSlice";
 
 const HealthCardForm = ({ handleChange, values, errors, touched }) => {
+  const patientInfo = useSelector(getPatientInfo);
+  const dispatch = useDispatch();
   const [searchPatientByHealthCard, { isLoading }] =
     useSearchPatientByHealthCardNumberMutation();
 
   const searchPatientOnClick = async (healthCardNumber, errors) => {
     if (errors.healthCardNumber || healthCardNumber.length == 0) {
-      console.log("Error");
+      errors.healthCardNumber = "Please provide your health card number";
     } else {
       try {
-        const res = await searchPatientByHealthCard(healthCardNumber).unwrap();
-        console.log(res);
+        let res = await searchPatientByHealthCard(healthCardNumber).unwrap();
+
+        if (res) {
+          res = res.patientInfo;
+
+          dispatch(
+            updatePatientInfo({
+              patientInfo: {
+                ...patientInfo,
+                healthCardInfo: {
+                  healthCardNumber: values.healthCardNumber,
+                },
+                firstName: res.firstname,
+                lastName: res.lastname,
+                dateOfBirth: res.date_of_birth.slice(0, 10),
+                gender: res.gender,
+                address: res.address,
+                contactInformation: {
+                  primaryPhoneNumber: res.primary_phone_number,
+                  secondaryPhoneNumber: res.secondary_phone_number,
+                  emergencyContact: res.emergency_contact,
+                  emergencyContactRelationship:
+                    res.emergency_contact_relationship,
+                  email: res.email,
+                },
+              },
+            })
+          );
+        }
       } catch (err) {
         console.log("Cannot find health card number", err);
       }
