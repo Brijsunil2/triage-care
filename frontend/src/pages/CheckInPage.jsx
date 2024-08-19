@@ -6,7 +6,6 @@ import VisitInfoPage from "./VisitInfoPage";
 import PoliciesAndConditionsPage from "./PoliciesAndConditionsPage";
 import TriageDonePage from "./TriageDonePage";
 import { Container } from "react-bootstrap";
-import { PatientCheckinDataProvider } from "../context/PatientCheckinDataContext";
 
 const CheckInPage = () => {
   const [step, setStep] = useState(0);
@@ -24,10 +23,8 @@ const CheckInPage = () => {
 
   return (
     <Container className="checkinpage-container">
-      <PatientCheckinDataProvider>
-        <Header />
-        {subPages[step]}
-      </PatientCheckinDataProvider>
+      <Header />
+      {subPages[step]}
     </Container>
   );
 };

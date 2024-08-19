@@ -20,6 +20,7 @@ export const patientInfo = {
   gender: "",
   address: "",
   contactInformation: patientContactInfo,
+  locked: false,
 };
 
 export const patientMedicalHistory = {
@@ -42,7 +43,7 @@ export const patientVisitInfo = {
 export const initialCheckinData = {
   patientInfo: patientInfo,
   visitInfo: patientVisitInfo,
-  patientAcknowledgement: ""
+  patientAcknowledgement: "",
 };
 
 export const patientInfoFormSchema = yup.object({

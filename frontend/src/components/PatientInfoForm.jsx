@@ -1,6 +1,6 @@
 import { Form, Row, Col } from "react-bootstrap";
 
-const PatientInfoForm = ({handleChange, values, errors, touched}) => {
+const PatientInfoForm = ({ handleChange, values, errors, touched }) => {
   return (
     <>
       <Row>

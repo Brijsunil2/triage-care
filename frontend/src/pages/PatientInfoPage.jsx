@@ -69,7 +69,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
 
   const formikSection = (
     <Formik
-      enableReinitialize={true} 
+      enableReinitialize={true}
       validationSchema={patientInfoFormSchema}
       onSubmit={submitHandler}
       initialValues={initialValues}

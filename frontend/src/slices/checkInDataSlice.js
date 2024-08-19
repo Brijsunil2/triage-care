@@ -15,6 +15,9 @@ export const checkInDataSlice = createSlice({
   name: "checkInData",
   initialState,
   reducers: {
+    lockPatientInfo(state, action) {
+      state.checkInData.patientInfo.locked = action.payload;
+    },
     updatePatientInfo(state, action) {
       state.checkInData.patientInfo = action.payload.patientInfo;
     },
@@ -65,7 +68,7 @@ export const getVisitInfo = createSelector(
   (checkInData) => checkInData.visitInfo
 );
 
-export const { updatePatientInfo, updateVisitInfo, reset } =
+export const { lockPatientInfo, updatePatientInfo, updateVisitInfo, reset } =
   checkInDataSlice.actions;
 
 export default checkInDataSlice.reducer;
