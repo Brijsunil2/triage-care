@@ -73,7 +73,6 @@ TriageCare is a modern hospital triage system designed to streamline the patient
 
 - **Database**:
 
-  - MongoDB
   - PostgreSQL
 
 - **Tools & Utilities**:
