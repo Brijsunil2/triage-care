@@ -14,6 +14,11 @@ INSERT INTO contact_info (person_id, primary_phone_number, secondary_phone_numbe
   VALUES ($1, $2, $3, $4, $5, $6);
 `;
 
+const updateContactInfoQuery = `
+UPDATE contact_info
+  SET primary_phone_number = $1, secondary_phone_number = $2, emergency_contact = $3, emergency_contact_relationship = $4, email = $5
+  WHERE person_id = $6`;
+
 const insertMedicalHistoryQuery = `
 INSERT INTO medical_history (person_id, current_medications, allergies, chronic_conditions)
   VALUES ($1, $2, $3, $4);
@@ -36,6 +41,7 @@ SELECT
   FROM person p
   LEFT JOIN contact_info c ON p.id = c.person_id
   WHERE p.id = $1
+  ORDER BY c.id DESC
 `;
 
 export {
