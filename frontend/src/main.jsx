@@ -12,6 +12,9 @@ import { store } from "./store.js";
 import { Provider } from "react-redux";
 
 const CheckInPage = lazy(() => import("./pages/CheckInPage.jsx"));
+const TriageDashboardPage = lazy(() =>
+  import("./pages/TriageDashboardPage.jsx")
+);
 
 const UnexpectedErrorPage = lazy(() =>
   import("./pages/UnexpectedErrorPage.jsx")
@@ -36,6 +39,7 @@ const router = createBrowserRouter(
       >
         <Route path="/" element={<Navigate to="/checkin" replace />} />
         <Route path="/checkin" element={<CheckInPage />} />
+        <Route path="/dashboard" element={<TriageDashboardPage />} />
         <Route
           path="*"
           element={
@@ -56,7 +60,7 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store} >
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
