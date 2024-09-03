@@ -1,7 +1,11 @@
+import PatientQueueSection from "../components/PatientQueueSection";
+
 const TriageDashboardPage = () => {
   return (
-    <div>TriageDashboardPage</div>
-  )
-}
+    <main className="triagedashboardpage-container p-3">
+      <PatientQueueSection />
+    </main>
+  );
+};
 
-export default TriageDashboardPage
+export default TriageDashboardPage;

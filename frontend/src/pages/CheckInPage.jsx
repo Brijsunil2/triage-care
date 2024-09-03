@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Header from "../components/Header";
 import TriageStartPage from "./TriageStartPage";
 import PatientInfoPage from "./PatientInfoPage";
 import VisitInfoPage from "./VisitInfoPage";
@@ -23,7 +22,6 @@ const CheckInPage = () => {
 
   return (
     <Container className="checkinpage-container">
-      <Header />
       {subPages[step]}
     </Container>
   );
