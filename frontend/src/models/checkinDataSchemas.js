@@ -46,6 +46,16 @@ export const initialCheckinData = {
   patientAcknowledgement: "",
 };
 
+export const patientHealthCardInfoSchema = yup.object({
+  healthCardNumber: yup
+    .string()
+    .matches(
+      /^[0-9]{4}-[0-9]{3}-[0-9]{3}-[A-Z]{2}$/,
+      "Invalid health card number"
+    )
+    .required("Please provide your health card number"),
+});
+
 export const patientInfoFormSchema = yup.object({
   healthCardNumber: yup
     .string()
@@ -92,4 +102,9 @@ export const patientVisitInfoSchema = yup.object({
   currentMedications: yup.array(),
   allergies: yup.string().notRequired(),
   chronicConditions: yup.string().notRequired(),
+});
+
+export const patientInfoSearchFormSchema = yup.object({
+  firstName: yup.string().required("Please provide the first name"),
+  lastName: yup.string().required("Please provide the last name"),
 });
