@@ -75,7 +75,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
         <Col>
           <Form.Group className="input-container">
             <Form.Label htmlFor="healthCardNumberInput">
-              <span style={{ color: "red" }}>*</span> Health Card Number
+              Health Card Number
             </Form.Label>
             <div className="d-flex">
               <Cleave
