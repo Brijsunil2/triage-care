@@ -56,10 +56,8 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
           );
           setSearchSuccess(true);
         } else {
-          // errors.healthCardNumber = "Invalid health card number";
           setFormError(false);
           setSearchSuccess(true);
-          delete errors.healthCardNumber;
         }
       } catch (err) {
         console.log("Cannot find health card number", err);
