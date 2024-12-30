@@ -13,14 +13,11 @@ export const patientContactInfo = {
 };
 
 export const patientInfo = {
-  healthCardInfo: patientHealthCardInfo,
-  firstName: "",
-  lastName: "",
+  firstname: "",
+  lastname: "",
   dateOfBirth: "",
   gender: "",
   address: "",
-  contactInformation: patientContactInfo,
-  locked: false,
 };
 
 export const patientMedicalHistory = {
@@ -33,14 +30,10 @@ export const patientVisitInfo = {
   reasonForVisit: "",
   patientPainRating: 0,
   symptoms: [],
-  medicalHistory: {
-    currentMedications: [],
-    allergies: "",
-    chronicConditions: "",
-  },
 };
 
 export const initialCheckinData = {
+  patientHealthCardInfo: patientHealthCardInfo,
   patientInfo: patientInfo,
   visitInfo: patientVisitInfo,
   patientAcknowledgement: "",
@@ -62,8 +55,8 @@ export const patientInfoFormSchema = yup.object({
       /^[0-9]{4}-[0-9]{3}-[0-9]{3}-[A-Z]{2}$/,
       "Invalid health card number"
     ),
-  firstName: yup.string().required("Please provide your first name"),
-  lastName: yup.string().required("Please provide your last name"),
+  firstname: yup.string().required("Please provide your first name"),
+  lastname: yup.string().required("Please provide your last name"),
   dateOfBirth: yup.string().required("Please provide your date of birth"),
   gender: yup.string().required("Please provide your gender"),
   address: yup.string().required("Please provide an address"),
@@ -103,6 +96,6 @@ export const patientVisitInfoSchema = yup.object({
 });
 
 export const patientInfoSearchFormSchema = yup.object({
-  firstName: yup.string().required("Please provide the first name"),
-  lastName: yup.string().required("Please provide the last name"),
+  firstname: yup.string().required("Please provide the first name"),
+  lastname: yup.string().required("Please provide the last name"),
 });
