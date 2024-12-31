@@ -8,14 +8,14 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updatePatientInfo,
-  getPatientInfo,
+  getCheckInData,
   reset,
 } from "../slices/checkInDataSlice";
 import { patientInfoFormSchema } from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
-  const patientInfo = useSelector(getPatientInfo);
+  const checkInData =  useSelector(getCheckInData);
   const dispatch = useDispatch();
   const { Formik } = formik;
 
@@ -25,46 +25,27 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
   };
 
   const submitHandler = (values) => {
-    dispatch(
-      updatePatientInfo({
-        patientInfo: {
-          ...patientInfo,
-          healthCardInfo: {
-            healthCardNumber: values.healthCardNumber,
-          },
-          firstName: values.firstName,
-          lastName: values.lastName,
-          dateOfBirth: values.dateOfBirth,
-          gender: values.gender,
-          address: values.address,
-          contactInformation: {
-            primaryPhoneNumber: values.primaryPhoneNumber,
-            secondaryPhoneNumber: values.secondaryPhoneNumber,
-            emergencyContact: values.emergencyContact,
-            emergencyContactRelationship: values.emergencyContactRelationship,
-            email: values.email,
-          },
-        },
-      })
-    );
-    nextPage();
+    console.log(checkInData)
+    // dispatch(
+    //   updatePatientInfo({
+        
+    //   })
+    // );
+    // nextPage();
   };
 
   const initialValues = {
-    healthCardNumber: patientInfo?.healthCardInfo?.healthCardNumber || "",
-    firstName: patientInfo?.firstName || "",
-    lastName: patientInfo?.lastName || "",
-    dateOfBirth: patientInfo?.dateOfBirth || "",
-    gender: patientInfo?.gender || "",
-    address: patientInfo?.address || "",
-    primaryPhoneNumber:
-      patientInfo?.contactInformation?.primaryPhoneNumber || "",
-    secondaryPhoneNumber:
-      patientInfo?.contactInformation?.secondaryPhoneNumber || "",
-    emergencyContact: patientInfo?.contactInformation?.emergencyContact || "",
-    emergencyContactRelationship:
-      patientInfo?.contactInformation?.emergencyContactRelationship || "",
-    email: patientInfo?.contactInformation?.email || "",
+    healthCardNumber: "",
+    firstName: "",
+    lastName: "",
+    dateOfBirth:"",
+    gender: "",
+    address: "",
+    primaryPhoneNumber: "",
+    secondaryPhoneNumber: "",
+    emergencyContact:"",
+    emergencyContactRelationship: "",
+    email: "",
   };
 
   const formikSection = (

@@ -2,67 +2,41 @@ import { Form, Row, Button, Col } from "react-bootstrap";
 import Cleave from "cleave.js/react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updatePatientInfo,
   useSearchPatientByHealthCardNumberMutation,
-  getPatientInfo,
+  updateCheckInData,
+  getCheckInData,
 } from "../slices/checkInDataSlice";
 import LoadingPage from "../pages/LoadingPage";
-import { useState } from "react";
 
 const HealthCardForm = ({ handleChange, values, errors, touched }) => {
-  const [formError, setFormError] = useState(false);
-  const [searchSuccess, setSearchSuccess] = useState(false);
-  const patientInfo = useSelector(getPatientInfo);
+  const checkInData = useSelector(getCheckInData);
   const dispatch = useDispatch();
   const [searchPatientByHealthCard, { isLoading }] =
     useSearchPatientByHealthCardNumberMutation();
 
   const searchPatientOnClick = async (healthCardNumber) => {
-    if (errors.healthCardNumber || healthCardNumber.length == 0) {
-      errors.healthCardNumber = "Please provide your health card number";
-      setFormError(true);
-      setSearchSuccess(false);
-    } else {
+    if (!errors.healthCardNumber) {
       try {
-        setFormError(false);
         delete errors.healthCardNumber;
         let res = await searchPatientByHealthCard(healthCardNumber).unwrap();
-
-        if (res.patientInfo) {
-          res = res.patientInfo;
-
-          dispatch(
-            updatePatientInfo({
-              patientInfo: {
-                ...patientInfo,
-                healthCardInfo: {
-                  healthCardNumber: values.healthCardNumber,
-                },
-                firstName: res.firstname,
-                lastName: res.lastname,
-                dateOfBirth: res.date_of_birth.slice(0, 10),
-                gender: res.gender,
-                address: res.address,
-                contactInformation: {
-                  primaryPhoneNumber: res.primary_phone_number,
-                  secondaryPhoneNumber: res.secondary_phone_number,
-                  emergencyContact: res.emergency_contact,
-                  emergencyContactRelationship:
-                    res.emergency_contact_relationship,
-                  email: res.email,
-                },
-              },
-            })
-          );
-          setSearchSuccess(true);
-        } else {
-          setFormError(false);
-          setSearchSuccess(true);
-        }
+        dispatch(
+          updateCheckInData({
+            ...checkInData,
+            ...res,
+          })
+        );
       } catch (err) {
-        console.log("Cannot find health card number", err);
-        setSearchSuccess(false);
+        if (err.status === 404) {
+          console.log(err.data.message, err);
+        } else {
+          console.log(
+            "Unexpected error has occured, please try again or restart.",
+            err
+          );
+        }
       }
+    } else {
+      console.log(errors.healthCardNumber);
     }
   };
 
@@ -79,8 +53,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               <Cleave
                 id="healthCardNumberInput"
                 className={`form-control input-box healthcardnumber-input ${
-                  (touched.healthCardNumber && errors.healthCardNumber) ||
-                  formError
+                  touched.healthCardNumber && errors.healthCardNumber
                     ? "is-invalid"
                     : ""
                 }`}
@@ -99,17 +72,9 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
                 className="input-btn"
                 onClick={() => searchPatientOnClick(values.healthCardNumber)}
               >
-                {searchSuccess && <span>&#10003; </span>} Search Patient
+                Search Patient
               </Button>
             </div>
-            {(touched.healthCardNumber && errors.healthCardNumber) ||
-            formError ? (
-              <div className="invalid-feedback d-block">
-                {errors.healthCardNumber}
-              </div>
-            ) : (
-              <></>
-            )}
           </Form.Group>
         </Col>
       </Row>

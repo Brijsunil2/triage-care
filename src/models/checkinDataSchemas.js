@@ -1,10 +1,10 @@
 import * as yup from "yup";
 
-export const patientHealthCardInfo = {
+export const healthCardInfo = {
   healthCardNumber: "",
 };
 
-export const patientContactInfo = {
+export const contactInfo = {
   primaryPhoneNumber: "",
   secondaryPhoneNumber: "",
   emergencyContact: "",
@@ -13,29 +13,31 @@ export const patientContactInfo = {
 };
 
 export const patientInfo = {
-  firstname: "",
-  lastname: "",
+  firstName: "",
+  lastName: "",
   dateOfBirth: "",
   gender: "",
   address: "",
 };
 
-export const patientMedicalHistory = {
+export const medicalHistory = {
   currentMedications: [],
   allergies: "",
   chronicConditions: "",
 };
 
-export const patientVisitInfo = {
+export const visitInfo = {
   reasonForVisit: "",
-  patientPainRating: 0,
+  painRating: 0,
   symptoms: [],
 };
 
 export const initialCheckinData = {
-  patientHealthCardInfo: patientHealthCardInfo,
-  patientInfo: patientInfo,
-  visitInfo: patientVisitInfo,
+  healthCardInfo,
+  patientInfo,
+  contactInfo,
+  medicalHistory,
+  visitInfo,
   patientAcknowledgement: "",
 };
 
@@ -55,8 +57,8 @@ export const patientInfoFormSchema = yup.object({
       /^[0-9]{4}-[0-9]{3}-[0-9]{3}-[A-Z]{2}$/,
       "Invalid health card number"
     ),
-  firstname: yup.string().required("Please provide your first name"),
-  lastname: yup.string().required("Please provide your last name"),
+  firstName: yup.string().required("Please provide your first name"),
+  lastName: yup.string().required("Please provide your last name"),
   dateOfBirth: yup.string().required("Please provide your date of birth"),
   gender: yup.string().required("Please provide your gender"),
   address: yup.string().required("Please provide an address"),
@@ -96,6 +98,6 @@ export const patientVisitInfoSchema = yup.object({
 });
 
 export const patientInfoSearchFormSchema = yup.object({
-  firstname: yup.string().required("Please provide the first name"),
-  lastname: yup.string().required("Please provide the last name"),
+  firstName: yup.string().required("Please provide the first name"),
+  lastName: yup.string().required("Please provide the last name"),
 });

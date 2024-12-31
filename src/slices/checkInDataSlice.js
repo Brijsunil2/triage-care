@@ -19,10 +19,19 @@ export const checkInDataSlice = createSlice({
       state.checkInData.patientInfo.locked = action.payload;
     },
     updatePatientInfo(state, action) {
-      state.checkInData.patientInfo = action.payload.patientInfo;
+      state.checkInData.patientInfo = action.payload;
+    },
+    updateContactInfo(state, action) {
+      state.checkInData.contactInfo = action.payload;
+    },
+    updateHealthCardInfo(state, action) {
+      state.checkInData.healthCardInfo = action.payload;
     },
     updateVisitInfo(state, action) {
-      state.checkInData.visitInfo = action.payload.visitInfo;
+      state.checkInData.visitInfo = action.payload;
+    },
+    updateCheckInData(state, action) {
+      state.checkInData = action;
     },
     reset(state) {
       return initialState;
@@ -68,7 +77,14 @@ export const getVisitInfo = createSelector(
   (checkInData) => checkInData.visitInfo
 );
 
-export const { lockPatientInfo, updatePatientInfo, updateVisitInfo, reset } =
-  checkInDataSlice.actions;
+export const {
+  lockPatientInfo,
+  updatePatientInfo,
+  updateContactInfo,
+  updateVisitInfo,
+  updateHealthCardInfo,
+  updateCheckInData,
+  reset,
+} = checkInDataSlice.actions;
 
 export default checkInDataSlice.reducer;
