@@ -14,7 +14,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
   const dispatch = useDispatch();
   const [searchPatientByHealthCard, { isLoading }] =
     useSearchPatientByHealthCardNumberMutation();
-  const [formError, isFormError] = useState(false);
+  const [formValid, isFormValid] = useState(true);
 
   const searchPatientOnClick = async (healthCardNumber) => {
     if (!errors.healthCardNumber && healthCardNumber.length > 0) {
@@ -42,9 +42,11 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
             },
           })
         );
+        isFormValid(true);
       } catch (err) {
         if (err.status === 404) {
-          console.log(err.data.message, err);
+          errors.healthCardNumber = err.data.message;
+          isFormValid(false);
         } else {
           console.log(
             "Unexpected error has occured, please try again or restart.",
@@ -54,6 +56,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
       }
     } else {
       errors.healthCardNumber = "Please enter your health card number.";
+      isFormValid(false);
     }
   };
 
@@ -70,7 +73,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               <Cleave
                 id="healthCardNumberInput"
                 className={`form-control input-box healthcardnumber-input ${
-                  formError && "is-invalid"
+                  !formValid && "is-invalid"
                 }`}
                 type="text"
                 placeholder="XXXX-XXX-XXX-AB"
@@ -85,7 +88,6 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               />
 
               <Button
-                type="submit"
                 className={`input-btn`}
                 onClick={() => searchPatientOnClick(values.healthCardNumber)}
                 disabled={values.healthCardNumber.length < 15}
@@ -93,7 +95,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
                 Search Patient
               </Button>
             </div>
-            {formError && (
+            {!formValid && (
               <div className="invalid-feedback" style={{ display: "block" }}>
                 {errors.healthCardNumber}
               </div>

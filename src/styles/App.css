@@ -73,7 +73,7 @@ input {
   padding: 1rem;
 }
 
-button[type="submit"]:disabled {
+.btn-primary:disabled {
   color: white;
   background-color: var(--main-bright-green);
   border: solid 1px var(--main-light-green);
