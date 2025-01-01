@@ -7,6 +7,7 @@ import {
   getCheckInData,
 } from "../slices/checkInDataSlice";
 import LoadingPage from "../pages/LoadingPage";
+import { contactInfo } from "../models/checkinDataSchemas";
 
 const HealthCardForm = ({ handleChange, values, errors, touched }) => {
   const checkInData = useSelector(getCheckInData);
@@ -19,10 +20,25 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
       try {
         delete errors.healthCardNumber;
         let res = await searchPatientByHealthCard(healthCardNumber).unwrap();
+        console.log(res);
         dispatch(
           updateCheckInData({
             ...checkInData,
-            ...res,
+            patientInfo: {
+              firstName: res.patientInfo.firstname,
+              lastName: res.patientInfo.lastname,
+              dateOfBirth: res.patientInfo.date_of_birth,
+              gender: res.patientInfo.gender,
+              address: res.patientInfo.address,
+            },
+            contactInfo: {
+              primaryPhoneNumber: res.contactInfo.primary_phone_number,
+              secondaryPhoneNumber: res.contactInfo.secondary_phone_number,
+              emergencyContact: res.contactInfo.emergency_contact,
+              emergencyContactRelationship:
+                res.contactInfo.emergency_contact_relationship,
+              email: res.contactInfo.email,
+            },
           })
         );
       } catch (err) {

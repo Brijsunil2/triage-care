@@ -35,7 +35,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
   };
 
   const initialValues = {
-    healthCardNumber: "",
+    healthCardNumber: checkInData?.HealthCardInfo?.healthCardNumber || "",
     firstName: "",
     lastName: "",
     dateOfBirth:"",
