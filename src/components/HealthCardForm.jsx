@@ -7,18 +7,20 @@ import {
   getCheckInData,
 } from "../slices/checkInDataSlice";
 import LoadingPage from "../pages/LoadingPage";
+import { useState } from "react";
 
 const HealthCardForm = ({ handleChange, values, errors, touched }) => {
   const checkInData = useSelector(getCheckInData);
   const dispatch = useDispatch();
   const [searchPatientByHealthCard, { isLoading }] =
     useSearchPatientByHealthCardNumberMutation();
+  const [formError, isFormError] = useState(false);
 
   const searchPatientOnClick = async (healthCardNumber) => {
     if (!errors.healthCardNumber && healthCardNumber.length > 0) {
       delete errors.healthCardNumber;
       try {
-        let res = await searchPatientByHealthCard(healthCardNumber).unwrap();
+        const res = await searchPatientByHealthCard(healthCardNumber).unwrap();
 
         dispatch(
           updateCheckInData({
@@ -68,9 +70,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               <Cleave
                 id="healthCardNumberInput"
                 className={`form-control input-box healthcardnumber-input ${
-                  touched.healthCardNumber &&
-                  errors.healthCardNumber &&
-                  "is-invalid"
+                  formError && "is-invalid"
                 }`}
                 type="text"
                 placeholder="XXXX-XXX-XXX-AB"
@@ -86,15 +86,14 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
 
               <Button
                 type="submit"
-                className={`input-btn ${
-                  values.healthCardNumber.length == 0 && "btn-disabled"
-                }`}
+                className={`input-btn`}
                 onClick={() => searchPatientOnClick(values.healthCardNumber)}
+                disabled={values.healthCardNumber.length < 15}
               >
                 Search Patient
               </Button>
             </div>
-            {touched.healthCardNumber && errors.healthCardNumber && (
+            {formError && (
               <div className="invalid-feedback" style={{ display: "block" }}>
                 {errors.healthCardNumber}
               </div>

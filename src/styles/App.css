@@ -73,12 +73,11 @@ input {
   padding: 1rem;
 }
 
-.btn-disabled {
+button[type="submit"]:disabled {
   color: white;
   background-color: var(--main-bright-green);
   border: solid 1px var(--main-light-green);
   transition: background-color 0.3s;
-  padding: 1rem;
   opacity: 50%;
 }
 

@@ -89,10 +89,9 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
             </Button>
             <Button
               type="submit"
-              className={`px-4 py-2 my-4 d-flex align-items-center ${
-                !isValid && "btn-disabled"
-              }`}
+              className={`px-4 py-2 my-4 d-flex align-items-center`}
               style={{ verticalAlign: "bottom" }}
+              disabled={!isValid}
             >
               Next
               <IoIosArrowForward />

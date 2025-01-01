@@ -31,7 +31,7 @@ export const checkInDataSlice = createSlice({
       state.checkInData.visitInfo = action.payload;
     },
     updateCheckInData(state, action) {
-      state.checkInData = action;
+      state.checkInData = action.payload;
     },
     reset(state) {
       return initialState;
