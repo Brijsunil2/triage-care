@@ -7,7 +7,6 @@ import PatientContactInfoForm from "../components/PatientContactInfoForm";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updatePatientInfo,
   getCheckInData,
   reset,
 } from "../slices/checkInDataSlice";

@@ -7,7 +7,6 @@ import {
   getCheckInData,
 } from "../slices/checkInDataSlice";
 import LoadingPage from "../pages/LoadingPage";
-import { contactInfo } from "../models/checkinDataSchemas";
 
 const HealthCardForm = ({ handleChange, values, errors, touched }) => {
   const checkInData = useSelector(getCheckInData);
@@ -16,11 +15,11 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
     useSearchPatientByHealthCardNumberMutation();
 
   const searchPatientOnClick = async (healthCardNumber) => {
-    if (!errors.healthCardNumber) {
+    if (!errors.healthCardNumber && healthCardNumber.length > 0) {
+      delete errors.healthCardNumber;
       try {
-        delete errors.healthCardNumber;
         let res = await searchPatientByHealthCard(healthCardNumber).unwrap();
-        console.log(res);
+
         dispatch(
           updateCheckInData({
             ...checkInData,
@@ -52,7 +51,7 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
         }
       }
     } else {
-      console.log(errors.healthCardNumber);
+      errors.healthCardNumber = "Please enter your health card number.";
     }
   };
 
@@ -69,9 +68,9 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               <Cleave
                 id="healthCardNumberInput"
                 className={`form-control input-box healthcardnumber-input ${
-                  touched.healthCardNumber && errors.healthCardNumber
-                    ? "is-invalid"
-                    : ""
+                  touched.healthCardNumber &&
+                  errors.healthCardNumber &&
+                  "is-invalid"
                 }`}
                 type="text"
                 placeholder="XXXX-XXX-XXX-AB"
@@ -84,13 +83,22 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
                 }}
                 onChange={handleChange}
               />
+
               <Button
-                className="input-btn"
+                type="submit"
+                className={`input-btn ${
+                  values.healthCardNumber.length == 0 && "btn-disabled"
+                }`}
                 onClick={() => searchPatientOnClick(values.healthCardNumber)}
               >
                 Search Patient
               </Button>
             </div>
+            {touched.healthCardNumber && errors.healthCardNumber && (
+              <div className="invalid-feedback" style={{ display: "block" }}>
+                {errors.healthCardNumber}
+              </div>
+            )}
           </Form.Group>
         </Col>
       </Row>
