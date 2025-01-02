@@ -17,14 +17,17 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
   const [formValid, isFormValid] = useState(true);
 
   const searchPatientOnClick = async (healthCardNumber) => {
-    if (!errors.healthCardNumber && healthCardNumber.length > 0) {
+    if (healthCardNumber.length === 15) {
+      isFormValid(true);
       delete errors.healthCardNumber;
+      console.log("hello");
       try {
         const res = await searchPatientByHealthCard(healthCardNumber).unwrap();
 
         dispatch(
           updateCheckInData({
             ...checkInData,
+            healthCardInfo: { healthCardNumber },
             patientInfo: {
               firstName: res.patientInfo.firstname,
               lastName: res.patientInfo.lastname,
@@ -32,17 +35,8 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
               gender: res.patientInfo.gender,
               address: res.patientInfo.address,
             },
-            contactInfo: {
-              primaryPhoneNumber: res.contactInfo.primary_phone_number,
-              secondaryPhoneNumber: res.contactInfo.secondary_phone_number,
-              emergencyContact: res.contactInfo.emergency_contact,
-              emergencyContactRelationship:
-                res.contactInfo.emergency_contact_relationship,
-              email: res.contactInfo.email,
-            },
           })
         );
-        isFormValid(true);
       } catch (err) {
         if (err.status === 404) {
           errors.healthCardNumber = err.data.message;

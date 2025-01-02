@@ -8,13 +8,16 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCheckInData,
+  updateCheckInData,
   reset,
 } from "../slices/checkInDataSlice";
-import { patientInfoFormSchema } from "../models/checkinDataSchemas";
+import {
+  patientInfoFormSchema,
+} from "../models/checkinDataSchemas";
 import * as formik from "formik";
 
 const PatientInfoPage = ({ prevPage, nextPage }) => {
-  const checkInData =  useSelector(getCheckInData);
+  const checkInData = useSelector(getCheckInData);
   const dispatch = useDispatch();
   const { Formik } = formik;
 
@@ -24,27 +27,42 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
   };
 
   const submitHandler = (values) => {
-    console.log(checkInData)
-    // dispatch(
-    //   updatePatientInfo({
-        
-    //   })
-    // );
-    // nextPage();
+    dispatch(
+      updateCheckInData({
+        ...checkInData,
+        healthCardInfo: { healthCardNumber: values.healthCardNumber },
+        patientInfo: {
+          firstName: values.firstName,
+          lastName: values.lastname,
+          dateOfBirth: values.dateOfBirth,
+          gender: values.gender,
+          address: values.address,
+        },
+        contactInfo: {
+          primaryPhoneNumber: values.primaryPhoneNumber,
+          secondaryPhoneNumber: values.secondaryPhoneNumber,
+          emergencyContact: values.emergencyContact,
+          emergencyContactRelationship: values.emergencyContactRelationship,
+          email: values.email,
+        },
+      })
+    );
+    nextPage();
   };
 
   const initialValues = {
-    healthCardNumber: checkInData?.HealthCardInfo?.healthCardNumber || "",
-    firstName: "",
-    lastName: "",
-    dateOfBirth:"",
-    gender: "",
-    address: "",
-    primaryPhoneNumber: "",
-    secondaryPhoneNumber: "",
-    emergencyContact:"",
-    emergencyContactRelationship: "",
-    email: "",
+    healthCardNumber: checkInData?.healthCardInfo?.healthCardNumber || "",
+    firstName: checkInData?.patientInfo?.firstName || "",
+    lastName: checkInData?.patientInfo?.lastName || "",
+    dateOfBirth: checkInData?.patientInfo?.dateOfBirth.substring(0, 10) || "",
+    gender: checkInData?.patientInfo?.gender || "",
+    address: checkInData?.patientInfo?.address || "",
+    primaryPhoneNumber: checkInData?.contactInfo?.primaryPhoneNumber || "",
+    secondaryPhoneNumber: checkInData?.contactInfo?.secondaryPhoneNumber || "",
+    emergencyContact: checkInData?.contactInfo?.emergencyContact || "",
+    emergencyContactRelationship:
+      checkInData?.contactInfo?.emergencyContactRelationship || "",
+    email: checkInData?.contactInfo?.email || "",
   };
 
   const formikSection = (
