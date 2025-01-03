@@ -37,9 +37,7 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
             smallSection={true}
             required={true}
             className={
-              touched.patientPainRating &&
-              errors.patientPainRating &&
-              "dashedsection-error"
+              touched.painRating && errors.painRating && "dashedsection-error"
             }
           >
             <Form.Group className="input-container">
@@ -50,26 +48,26 @@ const VisitInfoForm = ({ handleChange, values, errors, touched }) => {
               </p>
               <Container>
                 <RangeSlider
-                  id="patientPainRatingInput"
-                  name="patientPainRating"
-                  value={values.patientPainRating}
+                  id="painRatingInput"
+                  name="painRating"
+                  value={values.painRating}
                   setValue={handleChange}
                 />
               </Container>
               <p
                 className="p-small pain-rating-text text-center mb-0"
                 style={
-                  touched.patientPainRating &&
-                  errors.patientPainRating && {
+                  touched.painRating &&
+                  errors.painRating && {
                     color: "var(--bs-form-invalid-color)",
                   }
                 }
               >
-                Pain Rating: {values.patientPainRating}
+                Pain Rating: {values.painRating}
               </p>
-              {touched.patientPainRating && errors.patientPainRating && (
+              {touched.painRating && errors.painRating && (
                 <div className="invalid-feedback d-block">
-                  {errors.patientPainRating}
+                  {errors.painRating}
                 </div>
               )}
             </Form.Group>

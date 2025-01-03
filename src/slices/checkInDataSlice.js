@@ -83,7 +83,7 @@ export const getVisitInfo = createSelector(
 export const getMedicalHistory = createSelector(
   [getCheckInData],
   (checkInData) => checkInData.medicalHistory
-)
+);
 
 export const {
   lockPatientInfo,

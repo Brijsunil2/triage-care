@@ -87,7 +87,7 @@ export const patientVisitInfoSchema = yup.object({
   reasonForVisit: yup
     .string()
     .required("Please enter the reason for your visit today"),
-  patientPainRating: yup
+  painRating: yup
     .number()
     .positive("Pain rating must be greater than zero")
     .required(),

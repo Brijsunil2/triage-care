@@ -29,7 +29,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
       updateVisitInfo({
         ...visitInfo,
         reasonForVisit: values.reasonForVisit,
-        patientPainRating: values.patientPainRating,
+        painRating: values.painRating,
         symptoms: [...values.symptoms],
       })
     );
@@ -46,7 +46,7 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
 
   const initialValues = {
     reasonForVisit: visitInfo?.reasonForVisit || "",
-    patientPainRating: visitInfo?.patientPainRating || 0,
+    painRating: visitInfo?.painRating || 0,
     symptoms: visitInfo?.symptoms || [],
     currentMedications: medicalHistory?.currentMedications || [],
     allergies: medicalHistory?.allergies || "",

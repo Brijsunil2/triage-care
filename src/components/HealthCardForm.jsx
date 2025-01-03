@@ -20,7 +20,6 @@ const HealthCardForm = ({ handleChange, values, errors, touched }) => {
     if (healthCardNumber.length === 15) {
       isFormValid(true);
       delete errors.healthCardNumber;
-      console.log("hello");
       try {
         const res = await searchPatientByHealthCard(healthCardNumber).unwrap();
 

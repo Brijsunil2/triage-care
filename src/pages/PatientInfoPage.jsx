@@ -33,7 +33,7 @@ const PatientInfoPage = ({ prevPage, nextPage }) => {
         healthCardInfo: { healthCardNumber: values.healthCardNumber },
         patientInfo: {
           firstName: values.firstName,
-          lastName: values.lastname,
+          lastName: values.lastName,
           dateOfBirth: values.dateOfBirth,
           gender: values.gender,
           address: values.address,
