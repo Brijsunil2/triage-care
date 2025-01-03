@@ -30,6 +30,9 @@ export const checkInDataSlice = createSlice({
     updateVisitInfo(state, action) {
       state.checkInData.visitInfo = action.payload;
     },
+    updateMedicalHistory(state, action) {
+      state.checkInData.medicalHistory = action.payload;
+    },
     updateCheckInData(state, action) {
       state.checkInData = action.payload;
     },
@@ -77,6 +80,11 @@ export const getVisitInfo = createSelector(
   (checkInData) => checkInData.visitInfo
 );
 
+export const getMedicalHistory = createSelector(
+  [getCheckInData],
+  (checkInData) => checkInData.medicalHistory
+)
+
 export const {
   lockPatientInfo,
   updatePatientInfo,
@@ -84,6 +92,7 @@ export const {
   updateVisitInfo,
   updateHealthCardInfo,
   updateCheckInData,
+  updateMedicalHistory,
   reset,
 } = checkInDataSlice.actions;
 

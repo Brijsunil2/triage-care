@@ -6,10 +6,16 @@ import VisitInfoForm from "../components/VisitInfoForm";
 import * as formik from "formik";
 import { patientVisitInfoSchema } from "../models/checkinDataSchemas";
 import { useSelector, useDispatch } from "react-redux";
-import { updateVisitInfo, getVisitInfo } from "../slices/checkInDataSlice";
+import {
+  updateVisitInfo,
+  getVisitInfo,
+  updateMedicalHistory,
+  getMedicalHistory,
+} from "../slices/checkInDataSlice";
 
 const VisitInfoPage = ({ prevPage, nextPage }) => {
   const visitInfo = useSelector(getVisitInfo);
+  const medicalHistory = useSelector(getMedicalHistory);
   const dispatch = useDispatch();
 
   const { Formik } = formik;
@@ -21,17 +27,18 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
   const submitHandler = (values) => {
     dispatch(
       updateVisitInfo({
-        visitInfo: {
-          visitInfo,
-          reasonForVisit: values.reasonForVisit,
-          patientPainRating: values.patientPainRating,
-          symptoms: [...values.symptoms],
-          medicalHistory: {
-            currentMedications: [...values.currentMedications],
-            allergies: values.allergies,
-            chronicConditions: values.chronicConditions,
-          },
-        },
+        ...visitInfo,
+        reasonForVisit: values.reasonForVisit,
+        patientPainRating: values.patientPainRating,
+        symptoms: [...values.symptoms],
+      })
+    );
+    dispatch(
+      updateMedicalHistory({
+        ...medicalHistory,
+        currentMedications: [...values.currentMedications],
+        allergies: values.allergies,
+        chronicConditions: values.chronicConditions,
       })
     );
     nextPage();
@@ -41,9 +48,9 @@ const VisitInfoPage = ({ prevPage, nextPage }) => {
     reasonForVisit: visitInfo?.reasonForVisit || "",
     patientPainRating: visitInfo?.patientPainRating || 0,
     symptoms: visitInfo?.symptoms || [],
-    currentMedications: visitInfo?.medicalHistory?.currentMedications || [],
-    allergies: visitInfo?.medicalHistory?.allergies || "",
-    chronicConditions: visitInfo?.medicalHistory?.chronicConditions || "",
+    currentMedications: medicalHistory?.currentMedications || [],
+    allergies: medicalHistory?.allergies || "",
+    chronicConditions: medicalHistory?.chronicConditions || "",
   };
 
   const formikSection = (
