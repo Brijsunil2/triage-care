@@ -37,11 +37,9 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
     if (patientAcknowledgement) {
       try {
         const res = await submitCheckInData(checkInData).unwrap();
-
-        if (res) {
-          dispatch(reset());
-          nextPage();
-        }
+        dispatch(reset());
+        nextPage();
+        
       } catch (err) {
         console.error("submitCheckInData", err);
       }
