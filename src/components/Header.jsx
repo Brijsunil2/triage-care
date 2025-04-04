@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
 import "../styles/Header.css";
+import { OverlayTrigger, Popover, Button } from "react-bootstrap";
 
 const Header = () => {
   const onCheckBoxChange = (e) => {
@@ -10,18 +11,36 @@ const Header = () => {
     }
   };
 
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Body>
+        This version is for demo purposes only. It is not intended for
+        real-world use. Fake client data will be generated. Please do not use
+        real client data. This version does not use a backend server, no data
+        will be saved.
+      </Popover.Body>
+    </Popover>
+  );
+
   return (
     <header className="container py-3">
-      <Container className="px-3">
-        <input
-          type="checkbox"
-          className=""
-          id="blackTextCheckbox"
-          onChange={(e) => onCheckBoxChange(e)}
-        ></input>
-        <label className="form-check-label mx-2" htmlFor="blackTextCheckbox">
-          Black Font
-        </label>
+      <Container className="px-3 d-flex justify-content-between align-items-center">
+        <Container>
+          <input
+            type="checkbox"
+            className=""
+            id="blackTextCheckbox"
+            onChange={(e) => onCheckBoxChange(e)}
+          ></input>
+          <label className="form-check-label mx-2" htmlFor="blackTextCheckbox">
+            Black Font
+          </label>
+        </Container>
+        {process.env.DEMO_MODE === "true" && (
+          <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+            <Button>Demo Mode</Button>
+          </OverlayTrigger>
+        )}
       </Container>
     </header>
   );
