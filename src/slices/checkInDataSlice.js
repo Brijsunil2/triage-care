@@ -1,12 +1,16 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { initialCheckinData } from "../models/checkinDataSchemas";
+import { demoInitialCheckinData } from "../models/demoCheckinDataSchemas";
 import { apiSlice } from "./apiSlice";
 
 const checkInDataAdaptor = createEntityAdapter({});
 
 const initialState = checkInDataAdaptor.getInitialState({
-  checkInData: { ...initialCheckinData },
+  checkInData:
+    process.env.DEMO_MODE === "true"
+      ? { ...demoInitialCheckinData }
+      : { ...initialCheckinData },
   status: "idle",
   error: null,
 });
