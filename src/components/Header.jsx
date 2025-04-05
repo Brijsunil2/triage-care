@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import "../styles/Header.css";
-import { OverlayTrigger, Popover, Button } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 
 const Header = () => {
   const onCheckBoxChange = (e) => {
@@ -11,15 +11,13 @@ const Header = () => {
     }
   };
 
-  const popover = (
-    <Popover id="popover-basic">
-      <Popover.Body>
-        This version is for demo purposes only. It is not intended for
-        real-world use. Fake client data will be generated. Please do not use
-        real client data. This version does not use a backend server, no data
-        will be saved.
-      </Popover.Body>
-    </Popover>
+  const tooltip = (
+    <Tooltip style={{position:"fixed"}}>
+      This version is for demo purposes only. It is not intended for
+      real-world use. Fake client data will be generated. Please do not use
+      real client data. This version does not use a backend server, no data
+      will be saved.
+    </Tooltip>
   );
 
   return (
@@ -37,8 +35,8 @@ const Header = () => {
           </label>
         </Container>
         {process.env.DEMO_MODE === "true" && (
-          <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-            <Button>Demo Mode</Button>
+          <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={tooltip}>
+            <Button className="input-btn" style={{background: "red", border: "none"}}>Demo Version</Button>
           </OverlayTrigger>
         )}
       </Container>
