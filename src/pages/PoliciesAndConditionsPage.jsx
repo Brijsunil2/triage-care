@@ -36,10 +36,11 @@ const PoliciesAndConditionsPage = ({ prevPage, nextPage }) => {
   const onClickPageNext = async () => {
     if (patientAcknowledgement) {
       try {
-        const res = await submitCheckInData(checkInData).unwrap();
-        dispatch(reset());
+        if (process.env.DEMO_MODE !== "true") {
+          const res = await submitCheckInData(checkInData).unwrap();
+          dispatch(reset());
+        }
         nextPage();
-        
       } catch (err) {
         console.error("submitCheckInData", err);
       }
