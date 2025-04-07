@@ -6,6 +6,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [react()],
+    base: "/triage-care",
     server: {
       port: 3000,
       proxy: {
