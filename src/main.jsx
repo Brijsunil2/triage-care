@@ -19,34 +19,32 @@ const UnexpectedErrorPage = lazy(() =>
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Route
+      path="/triage-care"
+      element={<App />}
+      errorElement={
+        <UnexpectedErrorPage
+          h1Text="Oops!"
+          h2Text="Something went wrong"
+          errorText="We encountered an unexpected error. Please try refreshing the page or go back to the homepage."
+          goToHomeFunction="/triage-care/checkin"
+        />
+      }
+    >
+      <Route index element={<Navigate to="checkin" replace />} />
+      <Route path="checkin" element={<CheckInPage />} />
       <Route
-        path="/"
-        element={<App />}
-        errorElement={
+        path="*"
+        element={
           <UnexpectedErrorPage
-            h1Text="Oops!"
-            h2Text="Something went wrong"
-            errorText="We encountered an unexpected error. Please try refreshing the page or go back to the homepage."
-            goToHomeFunction="/checkin"
+            h1Text="Oops! 404"
+            h2Text=""
+            errorText="Page Not Found."
+            url="/triage-care/checkin"
           />
         }
-      >
-        <Route path="/" element={<Navigate to="/checkin" replace />} />
-        <Route path="/checkin" element={<CheckInPage />} />
-        <Route
-          path="*"
-          element={
-            <UnexpectedErrorPage
-              h1Text="Oops! 404"
-              h2Text=""
-              errorText="Page Not Found."
-              url="/checkin"
-            />
-          }
-        />
-      </Route>
-    </>
+      />
+    </Route>
   )
 );
 
